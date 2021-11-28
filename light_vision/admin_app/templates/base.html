@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> Thinai  </title>
+	{% include 'head.html' %}
+</head>
+<body>	
+	<nav class="navbar navbar-expand-lg navbar-light bg-white shadow sticky-top">
+        <div class="container-fluid px-lg-5">
+            <a href="" class="navbar-brand">
+                <img src="" width="100%" height="50" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fs-6 text-uppercase fw-bold" href="">About</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fs-6 text-uppercase fw-bold" href="">Services</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fs-6 text-uppercase fw-bold" href="">Blog</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link text-dark fs-6 text-uppercase fw-bold" href="">Contact</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+	{% block content %}{% endblock %}
+    <div class="bg-primary">
+        <div class="container">
+            <!-- row -->
+            <div class="row align-items-center g-0">
+                <div class="col-xl-6 col-lg-6 col-md-12">
+                    <!-- heading -->
+                    <div class="pt-5 py-lg-4">
+                        <h3 class="text-white display-6 fw-bold mb-0">Subscribe With Us</h3>
+                        <p class="text-white fs-5 small">get latest things</p>
+                    </div>
+                </div>
+                <!-- img -->
+                <div class=" col-xl-6 col-lg-6 col-md-12 text-lg-end text-center pt-6">
+                    <form id="newsletter-form" class="">
+                        <div class="input-group mb-3">
+                            <input type="email" placeholder="Your Email Address" aria-label="Your Email Address" class="border-end-0 form-control-lg form-control">
+                            <button type="submit" class="btn-light border-start-0 btn"><i class="bi bi-cursor-fill fs-4"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="">
+        <div class="py-5 bg-light text-muted">
+            <div class="container">
+                <div class="row">
+                    <div class="mb-2 mb-lg-0 col-lg-4">
+                        <div class="fw-bold text-uppercase text-dark mb-3">Social Links</div>
+                        <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                        <ul class="list-unstyled p-0">
+                            <li class="list-inline-item"><a href="#" target="_blank" title="twitter" class="text-decoration-none text-muted text-hover-primary"><i class="bi bi-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank" title="facebook" class="text-decoration-none text-muted text-hover-primary"><i class="bi bi-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank" title="instagram" class="text-decoration-none text-muted text-hover-primary"><i class="bi bi-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="mb-2 mb-lg-0 col-md-6 col-lg-2">
+                        <div class="fw-bold text-uppercase text-dark mb-3">Links</div>
+                        <ul class="list-unstyled p-0">
+                            <li><a class="text-muted text-decoration-none" href="/">Blog</a></li>
+                            <li><a class="text-muted text-decoration-none" href="/category-rooms">Contact</a></li>
+                            <li><a class="text-muted text-decoration-none" href="/category-2-rooms">Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="mb-2 mb-lg-0 col-md-6 col-lg-2">
+                        <div class="fw-bold text-uppercase text-dark mb-3">Pages</div>
+                        <ul class="list-unstyled p-0">
+                            <li><a class="text-muted text-decoration-none" href="/compare">Comparison</a></li>
+                            <li><a class="text-muted text-decoration-none" href="/team">Team</a></li>
+                            <li><a class="text-muted text-decoration-none" href="/contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="mb-2 mb-lg-0 col-lg-4">
+                        <div class="fw-bold text-uppercase text-dark mb-3">Address</div>
+                        <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
+                        @*<form id="newsletter-form" class="">
+                                <div class="input-group mb-3">
+                                    <input type="email" placeholder="Your Email Address" aria-label="Your Email Address" class="bg-transparent border-dark border-right-0 form-control"><div class="input-group-append"><button type="submit" class="btn-outline-dark border-left-0 btn btn-deoco"><i class="fa fa-paper-plane text-lg"></i></button></div>
+                                </div>
+                            </form>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div><div class="py-4 fw-light bg-dark text-white">
+            <div class="container">
+                <div class="align-items-center row">
+                    <div class="text-center"><p class="text-sm mb-md-0">© 2021  UD. All rights reserved.</p></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+	{% include 'script.html' %}
+</body>
+</html>

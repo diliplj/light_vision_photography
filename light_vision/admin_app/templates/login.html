@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> Log In </title>
+</head>
+<body>
+	<form method="POST" class="card p-5">
+		{% csrf_token %}
+		{% for data in form %}
+			<div>{{data.label}}</div>
+			<div>{{data}}</div>
+		{% endfor %}
+		<div class="my-4">
+			<button class="btn btn-primary btn-block border-0" type="submit">Log in</button>
+		</div>
+		
+	</form>
+</body>
+</html>
