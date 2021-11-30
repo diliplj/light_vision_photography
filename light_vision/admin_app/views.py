@@ -33,6 +33,9 @@ logger = logging.getLogger('app')
 
 def add_user(request):
 	context = {}
+	page_kwargs = {}
+	page_kwargs['static_root'] = STATIC_ROOT
+	page_kwargs['static_url'] = STATIC_URL 
 	try:
 		to_email_id = None
 		template = 'add_admin.html'
@@ -60,7 +63,7 @@ def add_user(request):
 				return HttpResponse("Something Went Wrong")
 		context = {
 			'form' :form,
-			'page_url' : seo.page_kwargs['static_url']
+			'page_kwargs' : page_kwargs
 		}
 	except Exception as e:
 		print("error----",e)
