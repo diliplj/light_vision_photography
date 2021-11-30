@@ -60,7 +60,7 @@ def add_user(request):
 				return HttpResponse("Something Went Wrong")
 		context = {
 			'form' :form,
-			'page_url' : seo.page_kwargs['static_url']
+			'page_url' : seo.page_kwargs['static_root']
 		}
 	except Exception as e:
 		print("error----",e)

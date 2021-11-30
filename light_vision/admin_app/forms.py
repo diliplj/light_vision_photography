@@ -16,36 +16,36 @@ def password_validator(password):
 		html += '<li class="text-danger">The password must contain at least one lowercase character</li>'
 	else:
 		html += '<li class="text-success">The password must contain at least one lowercase character</li>'
-		# raise forms.ValidationError('The password must contain at least one lowercase character.')
+		raise forms.ValidationError('The password must contain at least one lowercase character.')
 	if re.search('[A-Z]', password) is None:
 		err = True
 		html += '<li class="text-danger">The password must contain at least one uppercase character</li>'
 	else:
 		html += '<li class="text-success">The password must contain at least one uppercase character</li>'
-		# raise forms.ValidationError('The password must contain at least one uppercase character.')
+		raise forms.ValidationError('The password must contain at least one uppercase character.')
 	if re.search('[0-9]', password) is None:
 		err = True
 		html += '<li class="text-danger">The password must contain at least one numeric character</li>'
 	else:
 		html += '<li class="text-success">The password must contain at least one numeric character</li>'
-		# raise forms.ValidationError('The password must contain at least one numeric character.')
+		raise forms.ValidationError('The password must contain at least one numeric character.')
 	if re.search('[^A-Za-z0-9]', password) is None:
 		err = True
 		html += '<li class="text-danger">The password must contain at least one non-alphanumeric character (symbol).</li>'
 	else:
 		html += '<li class="text-success">The password must contain at least one non-alphanumeric character (symbol).</li>'
-		# raise forms.ValidationError('The password must contain at least one non-alphanumeric character (symbol).')
+		raise forms.ValidationError('The password must contain at least one non-alphanumeric character (symbol).')
 	if len(password) < 8:
 		err = True
 		html += '<li class="text-danger">Password is too short</li>'
 	else:
 		html += '<li class="text-success">Password is too short</li>'
+		raise forms.ValidationError('Password is too short.')
 	if err:
 		raise forms.ValidationError(html)
 
 
 class UserForm(forms.ModelForm):
-	
 	role = forms.ModelChoiceField(required=True, queryset=Role.objects.filter(datamode='A').order_by('role'))
 
 	def __init__(self, *args, **kwargs):
@@ -59,15 +59,15 @@ class UserForm(forms.ModelForm):
 		model = AddUser
 		fields = ['email', 'username' ,'password']	
 	
-	# def clean(self):
-	# 	password = self.cleaned_data['password']
+	# def clean_password(self):
+	# 	check_password = self.cleaned_data
 	# 	try:
-	# 		password_validator(password)
+	# 		password_validator(check_password['password'])
 
 	# 	except Exception as e:
 	# 		raise forms.ValidationError(e)
 
-	# 	return password
+	# 	return check_password
 
 class ChangePasswordForm(forms.Form):
 	old_password = forms.CharField(label="Old Password",required=True, max_length=255)

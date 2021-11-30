@@ -147,7 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(BASE_DIR ,'media','sdata')
 STATIC_URL  = '/static/'
-STATICFILES_DIRS =[os.path.join(BASE_DIR,'light_vision','media','sdata')]
+STATICFILES_DIRS =[os.path.join(BASE_DIR,'media','sdata')]
 MEDIA_URL  = '/dynamic/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media','ddata')
 # My mail 

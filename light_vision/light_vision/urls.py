@@ -10,10 +10,6 @@ urlpatterns = [
 
     path('',include("admin_app.urls")),
 
-    
-    # url(r'^site_media/(?P<path>.*)$', django_static_view.serve, {'document_root': settings.MEDIA_ROOT}),
-    # url(r'^static/admin/(?P<path>.*)$', django_static_view.serve, {'document_root': settings.STATIC_ROOT}),
-
     url(r'^static/(?P<path>.*)$', django_static_view.serve,{'document_root', settings.STATIC_ROOT}),
     url(r'^media/(?P<path>.*)$', django_static_view.serve,{'document_root', settings.MEDIA_ROOT}),
 
@@ -21,3 +17,4 @@ urlpatterns = [
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,
                               document_root=settings.MEDIA_ROOT)
+             
