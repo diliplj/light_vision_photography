@@ -15,7 +15,19 @@
         {% for data in package %}
 			<div>{{data.label}}</div>
 			<div>{{data}}</div>
-			
+		{% endfor %}
+
+        <h2>Events </h2>
+
+        {% for data in events %}
+			<div>{{data.label}}</div>
+			<div>{{data}}</div>
+		{% endfor %}
+
+        <h2> equipment </h2>
+        {% for data in equipment %}
+			<div>{{data.label}}</div>
+			<div>{{data}}</div>
 		{% endfor %}
 
         <div class="my-4">

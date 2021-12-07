@@ -12,16 +12,20 @@
     <h3>Gallery View</h3>
 
     {% for data in gallery_data %}
+    
         <div>{{data.label}}</div>
         <div>{{data.user}}</div>
-        <div>{{data.category}}</div>
-        <div><img src="{{ data.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
+        <div>{{data.category}}</div> 
         <div>{{data.short_description}}</div>
         <div>{{data.detail_description}}</div>
         <a href="{% url 'edit_gallery' data.id %}"> Edit Gallery </a>
         <a href="{% url 'delete_gallery' data.id %}"> Delete Gallery </a>
     {% endfor %}
     
+    {% for photo in photos %}
+    <div><img src="{{ photo.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
+    {% endfor %}
+
     {% for data in post_data %}
         <div>{{data.label}}</div>
         <div>{{data.user}}</div>
@@ -53,7 +57,9 @@
     <a href="{% url 'banner_add' %}"> Banner Add </a>  
 
     <br>
-    <a href="{% url 'add_user_password_change' request.user.id %}"> Change My Password </a>
+    {% comment %}
+    <!-- <a href="{% url 'add_user_password_change' request.user.id %}"> Change My Password </a> -->
+    {% endcomment %}
 </form>
 <a href="{% url 'login' %}"> Already have an account? </a> <br>
 <a href="{% url 'add_user' %}"> Sign up </a> <br>
@@ -61,6 +67,7 @@
 <a href="{% url 'gallery' %}"> Add Gallery </a> <br>
 <a href="{% url 'package' %}"> Add Package   </a> <br>
 <a href="{% url 'events' %}"> Add Events   </a> <br>
-<a href="{% url 'equipment' %}"> Add Equipment   </a> <br>
+<a href="{% url 'password_reset' %}"> password_reset   </a> <br>
+<a href="{% url 'logout' %}">Logout</a>
 </body>
 </html>

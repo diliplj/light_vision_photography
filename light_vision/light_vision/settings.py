@@ -146,9 +146,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = os.path.join(BASE_DIR ,'media','sdata')
-STATIC_URL  = '/static/'
-STATICFILES_DIRS =[os.path.join(BASE_DIR,'media','sdata')]
-MEDIA_URL  = '/dynamic/'
+STATIC_URL  = 'static/'
+# STATICFILES_DIRS =[os.path.join(BASE_DIR,'media','sdata')]
+MEDIA_URL  = 'dynamic/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media','ddata')
 # My mail 
 MY_MAIL = "diliplj5@gmail.com"
@@ -158,5 +158,14 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = MY_MAIL
 EMAIL_HOST_PASSWORD = 'xdxauijjaibxrihm'
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
 
 AUTH_USER_MODEL = 'admin_app.AddUser'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'testsite_app'
+# EMAIL_HOST_PASSWORD = 'mys3cr3tp4ssw0rd'
+# EMAIL_USE_TLS = True

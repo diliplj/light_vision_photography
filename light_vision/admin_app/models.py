@@ -127,9 +127,9 @@ class Events(models.Model):
 class Equipment(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	event = models.ForeignKey(Events, on_delete=models.CASCADE)
-	equipment_name = models.CharField(max_length=100, null=False)
 	images = models.ImageField(null=True, upload_to='equipment_images/')
-	equipment_model = models.CharField(max_length=100, null=False)
+	equipment_name = models.TextField(null=False)
+	equipment_model = models.TextField(null=False)
 	slug = models.SlugField(max_length=255,null=True)
 	album_detail = models.TextField(null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
@@ -194,7 +194,6 @@ class Post(models.Model):
 
 class Gallery(models.Model):
 	user = models.ForeignKey(AddUser, on_delete=models.CASCADE)
-	images = models.FileField(null=False, upload_to="gallery_images/")
 	category = models.CharField(null=False, max_length=255)
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
@@ -211,9 +210,30 @@ class Gallery(models.Model):
 		db_table = "Gallery"
 		verbose_name= "Gallery"
 
+class Photos(models.Model):
+	gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
+	images = models.FileField(null=False, upload_to="gallery_images/")
+	category = models.CharField(null=False, max_length=255)
+	slug = models.SlugField(max_length=255,null=True)
+	created_on = models.DateTimeField(auto_now_add=True)
+	updated_on = models.DateTimeField(auto_now=True)
+	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
+
+
+	def save(self, *args, **kwargs):
+		super(Photos, self).save(*args, **kwargs)
+		if self.category:
+			self.slug = slugify(self.category)
+			super(Photos, self).save()
+
+	class Meta:
+		db_table = "Photos"
+		verbose_name= "Photos"
+
 
 class Banner(models.Model):
 	banner_image = models.ImageField(null=False, upload_to="blog_images/")
+	image_list =  models.TextField(null=False, default="Nothing")
 	banner_video = models.URLField(null=True, max_length=252, blank=True)
 	banner_category = models.CharField(max_length=200)
 	created_on = models.DateTimeField(auto_now_add=True)

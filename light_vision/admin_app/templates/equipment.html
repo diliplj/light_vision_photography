@@ -7,7 +7,7 @@
 	<!-- <link rel="stylesheet" media="all" href="{{page_url}}css/normal.css" type="text/css" /> -->
 </head>
 <body>
-	<form method="POST" class="card p-5">
+	<form method="POST" class="card p-5" enctype="multipart/form-data">
 		{% csrf_token %}	
         <h2> equipment </h2>
         {% for data in equipment %}

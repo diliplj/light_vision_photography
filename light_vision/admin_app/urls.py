@@ -1,12 +1,15 @@
 from admin_app import views
 from django.urls import path
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('', views.add_user, name = "add_user"),
     path('add_user/', views.add_user, name = "add_user"),
-    path('logout/',views.logout_page, name="logout"),
-    path('login/',views.login_page, name="login"),
-    path('add_user_password_change/<int:id>/',views.add_user_password_change, name="add_user_password_change"),
+    
+    # path('logout/',views.logout_page, name="logout"),
+   # path('login/',views.login_page, name="login"),
+    # path('add_user_password_change/<int:id>/',views.add_user_password_change, name="add_user_password_change"),
     
     path("home/",views.home, name="home"),
     path("banner_add/",views.banner_add, name="banner_add"),

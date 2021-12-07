@@ -86,6 +86,7 @@ class LoginForm(forms.Form):
 	password = forms.CharField(required=True, max_length=255)
 			
 class BannerForm(forms.ModelForm):
+	banner_image = forms.FileField(label="Banner Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
 	class Meta:
 		model = Banner
 		exclude = ['slug','updated_on','datamode','created_on']			
@@ -116,6 +117,8 @@ class EditPostForm(forms.ModelForm):
 		exclude = ['user','slug','updated_on','datamode','created_on']
 
 class GalleryForm(forms.ModelForm):
+	images = forms.FileField(label="Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
 	class Meta:
 		model = Gallery
 		exclude = ['user','slug','updated_on','datamode','created_on']
@@ -138,9 +141,19 @@ class EditPackageForm(forms.ModelForm):
 		exclude = ['slug','updated_on','datamode','created_on']
 
 class EventsForm(forms.ModelForm):
+	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode='A'))
+
+	def __init__(self, *args, **kwargs):
+		self.request = kwargs.pop("request", None)
+		kwargs.setdefault('label_suffix', '')
+		super(EventsForm, self).__init__(*args, **kwargs)
+		self.fields['package'].empty_label = 'Select the function '
+		self.fields['package'].queryset = Package.objects.filter(datamode='Active')
+
 	class Meta:
 		model = Events
 		exclude = ['slug','updated_on','datamode','created_on']
+
 
 class EditEventsForm(forms.ModelForm):
 	class Meta:
@@ -148,6 +161,18 @@ class EditEventsForm(forms.ModelForm):
 		exclude = ['slug','updated_on','datamode','created_on']
 
 class EquipmentForm(forms.ModelForm):
+	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode='A'))
+	event = forms.ModelChoiceField(required=True, queryset=Events.objects.filter(datamode='A'))	
+
+	def __init__(self, *args, **kwargs):
+		self.request = kwargs.pop("request", None)
+		kwargs.setdefault('label_suffix', '')
+		super(EquipmentForm, self).__init__(*args, **kwargs)
+		self.fields['package'].empty_label = 'Select the function'
+		self.fields['package'].queryset = Package.objects.filter(datamode='Active')
+		self.fields['event'].empty_label = 'Select the funtion event'
+		self.fields['event'].queryset = Events.objects.filter(datamode='Active')
+
 	class Meta:
 		model = Equipment
 		exclude = ['slug','updated_on','datamode','created_on']

@@ -2,9 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login#, logout
 from django.conf import settings
-from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -13,7 +12,7 @@ from admin_app.models import *
 from admin_app.forms import *
 from admin_app import logger_file as ub 
 from light_vision.settings import MY_MAIL
-
+from light_vision import settings
 import sys
 import logging
 from . import seo
@@ -34,8 +33,8 @@ logger = logging.getLogger('app')
 def add_user(request):
 	context = {}
 	page_kwargs = {}
-	page_kwargs['static_root'] = STATIC_ROOT
-	page_kwargs['static_url'] = STATIC_URL 
+	page_kwargs['static_root'] = settings.STATIC_ROOT
+	page_kwargs['static_url'] = settings.STATIC_URL 
 	try:
 		to_email_id = None
 		template = 'add_admin.html'
@@ -71,84 +70,18 @@ def add_user(request):
 	return render(request,template,context)
 
 
-def add_user_password_change(request, id):
-	try:
-		template = "add_user_password_change.html"
-		if id and AddUser.objects.filter(id=id).exists():
-			form = ChangePasswordForm()
-			if request.method =="POST":
-				form = ChangePasswordForm(request.POST)
-				print("111",request.POST)
-				if form.is_valid():
-					verify_password = form.cleaned_data.get('old_password')
-					confirm_password = form.cleaned_data.get('confirm_password')
-					print("222")
-					user = AddUser.objects.filter(id=id).last()
-					if check_password(verify_password,user.password):
-						AddUser.objects.filter(id=id).update(password=make_password(confirm_password, confirm_password))	
-						return redirect('login')
-					else:
-						print("4444")
-						return HttpResponse("password wrong")
-		else:
-			print("555")
-			return HttpResponse("User not found")
-		context = {
-			'form':form
-		}
-	except Exception as e:
-		print("eee",e)
-	return render(request, template, context)  
-
-def login_page(request):
-	try:
-		template = 'login.html'
-		form = LoginForm()
-		if request.method =="POST":
-			form = LoginForm(request.POST)	
-			if form.is_valid():
-				email = form.cleaned_data.get('email')
-				password = form.cleaned_data.get('password')
-				if AddUser.objects.filter(email=email).exists():
-					user_data = AddUser.objects.get(email=email)
-					if check_password(password,user_data.password):
-						user = authenticate(request,username=user_data.username, password=password)
-						if user: 
-							if user_data.is_active:
-								login(request, user_data)
-								return redirect('home')
-							else:
-								return HttpResponse("Email address not found")	
-						else:
-							return redirect('login')
-				else:
-					return HttpResponse("Email or password invalid")
-		else:
-			form = LoginForm()
-		context = {	
-			"form" : form,
-			'page_url' : seo.page_kwargs['static_url']
-		}				
-	except Exception as e:
-		print("error---",e)
-	return render(request,template,context)
-	
-def logout_page(request):
-	try:
-		logout(request)	
-	except Exception as e:
-		print("error",e)
-	return redirect('login')
-
-
 def banner_add(request):
 	try:
 		template = 'create_banner.html'
 		form = BannerForm()
 		if request.method == "POST":
+
 			form = BannerForm(request.POST, request.FILES)
 			if form.is_valid():
-				form.save()
+				data = form.save(commit=False)
+				data.image_list = request.FILES.getlist('banner_image')
+				data.save()
+				
 				return redirect('home')
 			else:
 				return HttpResponse("Something Worng")
@@ -175,7 +108,8 @@ def home(request):
 				"form":data,
 				'page_url' : seo.page_kwargs['static_url'],
 				"post_data":post_data,
-				"gallery_data":gallery_data
+				"gallery_data":gallery_data,
+				"photos":Photos.objects.all(),
 			} 
 	except Exception as e:
 		print("eeee",e)
@@ -287,10 +221,18 @@ def gallery(request):
 		form = GalleryForm()
 		if request.method == "POST":
 			form = GalleryForm(request.POST, request.FILES)
+			images= request.FILES.getlist('images')
+			category = request.POST['category']
 			if form.is_valid():
 				user = form.save(commit=False)
 				user.user = account_user
 				user.save()
+				for image in images:
+					Photos.objects.create(
+						gallery = user,
+						category= category,
+						images= image	
+					)
 				return redirect('home')
 			else:
 				if Gallery.object.filter(user__email=account_user.email, datamode="Active").exists():
@@ -311,7 +253,7 @@ def edit_gallery(request, id):
 	try:
 		template = "edit_post.html"
 		if id:
-			data_obj = get_object_or_404(Gallery, id=id)
+			data_obj = get_object_or_404(Photos, id=id)
 			form = EditGalleryForm(instance=data_obj)
 			if request.method == "POST":
 				form = EditGalleryForm(request.POST,request.FILES,instance=data_obj)
@@ -340,6 +282,7 @@ def delete_gallery(request, id):
 				return redirect("home")				
 	except Exception as e:
 		print("eee",e)
+
 
 
 def package(request):
@@ -396,7 +339,7 @@ def events(request):
 		template = "events.html"
 		events = EventsForm()
 		if request.method =="POST":
-			events = EventsForm(request.POST)
+			events = EventsForm(request.POST, request.FILES)
 			if events.is_valid():
 				events.save()
 				return redirect('home')
@@ -441,7 +384,7 @@ def equipment(request):
 		template = "equipment.html"
 		equipment = EquipmentForm()
 		if request.method =="POST":
-			equipment = EquipmentForm(request.POST)
+			equipment = EquipmentForm(request.POST,request.FILES)
 			if equipment.is_valid():
 				equipment.save()
 				return redirect('home')
