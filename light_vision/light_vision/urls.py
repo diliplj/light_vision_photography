@@ -28,8 +28,9 @@ urlpatterns = [
 		name='password_change_done'),
 
 	path('admin/', admin.site.urls),
-
-	path('',include("admin_app.urls")),
+	
+	path('owner/page/',include("admin_app.urls")),
+	path('user/',include("client_app.urls")),
 	url(r'^static/(?P<path>.*)$', django_static_view.serve,{'document_root', settings.STATIC_ROOT}),
 	url(r'^media/(?P<path>.*)$', django_static_view.serve,{'document_root', settings.MEDIA_ROOT}),
 
