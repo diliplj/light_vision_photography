@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> Add Events </title>
+	
+	<!-- <link rel="stylesheet" media="all" href="{{page_url}}css/normal.css" type="text/css" /> -->
+</head>
+<body>
+	<form method="POST" class="card p-5" enctype="multipart/form-data">
+		{% csrf_token %}
+		
+        <h2>Events </h2>
+        {% for data in events %}
+			<div>{{data.label}}</div>
+			<div>{{data}}</div>
+		{% endfor %} 
+
+        <div class="my-4">
+			<button class="btn btn-primary btn-block border-0" type="submit">Add Events</button>
+		</div>
+		
+	</form>
+</body>
+</html>

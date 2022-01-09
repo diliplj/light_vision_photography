@@ -8,12 +8,13 @@ from django.contrib.auth.models import User, AbstractUser
 
 
 # Create your models here.
+
 class AddUser(AbstractUser):
-	email    = models.EmailField(max_length=255, null=False)
-	username   = models.CharField(max_length=255, unique=True, null=True)
-	password = models.CharField(max_length=255, null=False)
-	is_active   = models.BooleanField(default=True)  
-	slug = models.SlugField(max_length=255,null=True)
+	# email    = models.EmailField(max_length=255, null=False)
+	# username   = models.CharField(max_length=255, unique=True, null=True)
+	# password = models.CharField(max_length=255, null=False)
+	# is_active   = models.BooleanField(default=True)  
+	# slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
@@ -34,7 +35,7 @@ class AddUser(AbstractUser):
 	def __str__(self):
 
 		return "{0}".format(self.email)
-
+		
 class Role(models.Model):
 	role = models.CharField(max_length=255, null=False)
 	slug = models.SlugField(max_length=255,null=True, blank=True)
@@ -230,7 +231,6 @@ class Photos(models.Model):
 
 class Banner(models.Model):
 	banner_image = models.ImageField(null=False, upload_to="blog_images/")
-	image_list =  models.TextField(null=False, default="Nothing")
 	banner_video = models.URLField(null=True, max_length=252, blank=True)
 	banner_category = models.CharField(max_length=200)
 	created_on = models.DateTimeField(auto_now_add=True)
@@ -255,3 +255,16 @@ class AboutUs(models.Model):
 
 	class Meta:
 		db_table = "about_us"
+
+class ImageDuplicate(models.Model):
+	image_name = models.CharField(null=True, max_length=255)
+	image_url = models.CharField(null=True, max_length=255)
+	image_signature = models.CharField(null=False, max_length=255)
+	created_on = models.DateTimeField(auto_now_add=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+	updated_on = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		db_table = "ImageDuplicate"
+		verbose_name="ImageDuplicate"

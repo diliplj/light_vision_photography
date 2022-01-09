@@ -1,0 +1,55 @@
+{% extends 'loginbase.html' %}
+{% load ttags %}
+{% block content %}
+<div class="container h-100 d-flex justify-content-center">
+    <div class="col-12 col-md-5 align-self-center text-start p-5 border">
+        <p class="fs-4 fw-bold text-uppercase">Login</p>
+        <p>Enter your username and password to login into your account</p>
+        {% if form.errors %}
+        <p class="text-danger">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed, please login with an account that
+            has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-floating mb-3">
+                {{field|addcss:"form-control"}}
+                {{field.label_tag}}
+                <div class="invalid-feedback">
+                    <span class="help small">{{field.errors}}</span>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="d-grid gap-2">
+                <input class="btn btn-lg btn-primary text-uppercase" type="submit" value="login">
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+        </form>
+        <p class="text-left mt-4">
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        </p>
+        <hr>
+        <p class="text-left">
+            Dont have an account? <a href="{% url 'add_user' %}">Signup</a>
+        </p>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  // document.getElementById('id_password').setAttribute("oncopy","return false")
+  // document.getElementById('id_password').setAttribute("onpaste","return false")
+</script>
+{% endblock %}

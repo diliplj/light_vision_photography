@@ -15,15 +15,13 @@ from admin_poll.forms import *
 from photography_jan_6 import settings
 import sys
 import logging
-# from . import seo
+from . import api
 
 """
 NOTE : In forms you can use form.save() for forms.ModelForm  but for forms.Form you 
 cannot use that form.save() so You need to create variable for model 
 eg : var = student.objects.get(email=email) and then you should save the variable like 
 var.save()
-
-
 NOTE : make_password('123') # make_password used to encrypt the password 
 because User model will allow encrpyt password only
 """
@@ -42,7 +40,9 @@ def add_user(request):
 		user_data = None
 		if request.method == "POST":
 			form = UserForm(request.POST)
+			print(request.POST,"------")
 			if form.is_valid():
+				print(form,"1111")
 				to_email_id= form.cleaned_data.get('email')
 				name = form.cleaned_data.get('username')
 				password = form.cleaned_data.get('password')
@@ -71,23 +71,25 @@ def banner_add(request):
 		template = 'create_banner.html'
 		form = BannerForm()
 		if request.method == "POST":
-
+			category = request.POST.get('banner_category')
 			form = BannerForm(request.POST, request.FILES)
 			if form.is_valid():
-				data = form.save(commit=False)
-				data.image_list = request.FILES.getlist('banner_image')
-				data.save()
-				
+				image_list = request.FILES.getlist('banner_image')
+				for image in image_list:
+					Banner.objects.create(
+						banner_image = image,banner_video = request.POST.get('banner_video'),
+						banner_category =  request.POST.get('banner_category')
+					)
+				result,msg = api.create_signature(category,request.user)
+				print("result,msg---",result,msg)
 				return redirect('home')
 			else:
 				return HttpResponse("Something Worng")
 		else:
 			form = BannerForm()
 		context = {
-			"form_data":form
-			
+			"form_data":form	
 		}    
-			
 	except Exception as e:
 		print("eee",e)
 	
@@ -95,8 +97,9 @@ def banner_add(request):
 
 def home(request):
 	try:
-		template = "admin_poll\home.html"
+		template = "admin_poll/home.html"
 		if request.method =="GET":
+			print(request.GET)
 			data =  Banner.objects.filter(datamode="Active")
 			post_data = Post.objects.filter(datamode="Active")
 			gallery_data = Gallery.objects.filter(datamode="Active")
@@ -140,6 +143,9 @@ def banner_delete(request, id):
 	try:
 		if id:
 			if request.method == "GET":
+				datas = Banner.objects.filter(id=id)
+				for data in datas:
+					ImageDuplicate.objects.filter(image_name=data.banner_image).delete()
 				Banner.objects.filter(id=id).delete()
 				return redirect("home")				
 	except Exception as e:

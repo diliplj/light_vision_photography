@@ -1,0 +1,52 @@
+{% extends 'loginbase.html' %}
+{% load ttags %}
+{% block content %}
+<div class="container bg-white h-100 d-flex justify-content-center">
+    <div class="col-12 col-md-5 align-self-center text-start p-5 shadow-md border">
+        <p class=" fs-4 fw-bold text-uppercase">Signup</span></p>
+        <p>Create a new account</p>
+        <form method="post" action="" novalidate id="signup_form">
+            {% csrf_token %}
+            {% for field in form %}
+                </div>
+                {% for error in field.errors %}
+                <div>
+                    <span class="help small text-danger">{{error}}</span>
+                </div>
+                {% endfor %}
+                <div class="form-floating mb-3">
+                    {{field|addcss:"form-control"}}
+                    {{field.label_tag}}
+                    <!-- <div id="{{field.name}}" class="form-text">{{field.help_text}}</div> -->
+                    {% for error in field.errors %}
+                    <div>
+                        <span class="help small text-danger">{{error}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+            {% endfor %}
+
+            <div class="d-grid gap-2">
+                <input class="btn btn-lg btn-primary text-uppercase" type="hidden" name="type" value="GA">
+                <input class="btn btn-lg btn-primary text-uppercase" type="submit" value="Signup">
+            </div>
+        </form>
+        <p class="text-left mt-2">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    document.getElementById('id_mobile').setAttribute("maxlength", "10");
+    document.getElementById('id_mobile').addEventListener("keypress", function (evt) {
+        validate(evt)
+    });
+    document.getElementById('id_mobile').addEventListener("change", function (evt) {
+        validate(evt)
+    });
+    
+</script>
+{% endblock %}

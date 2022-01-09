@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, AbstractBaseUser
 from django.forms import Widget
 import re
+from wand.image import Image
+
 
 def password_validator(password):
 	err = False
@@ -89,7 +91,7 @@ class BannerForm(forms.ModelForm):
 	banner_image = forms.FileField(label="Banner Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
 	class Meta:
 		model = Banner
-		exclude = ['slug','updated_on','datamode','created_on']			
+		exclude = ['image_list','slug','updated_on','datamode','created_on']			
 
 class EditBannerForm(forms.ModelForm):
 	class Meta:
