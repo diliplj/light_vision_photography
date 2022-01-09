@@ -13,6 +13,8 @@ def create_signature(category=None,user_name=None):
     if category and user_name:
         banner_img_data = Banner.objects.filter(banner_category=category)
         for img in banner_img_data:
+            print("str(settings.BASE_DIR)+str(img.banner_image.url)",str(settings.MEDIA_ROOT)+"/"+str(img.banner_image))
+
             img_sign = Image(filename=str(settings.BASE_DIR)+str(img.banner_image.url))
             sign=img_sign.signature
             if not ImageDuplicate.objects.filter(image_signature=sign).exists(): 

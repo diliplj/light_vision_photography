@@ -108,6 +108,7 @@ def home(request):
 				"post_data":post_data,
 				"gallery_data":gallery_data,
 				"photos":Photos.objects.all(),
+				"page_kwargs" : settings.STATIC_ROOT
 			} 
 	except Exception as e:
 		print("eeee",e)
