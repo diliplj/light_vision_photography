@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'admin_poll.apps.AdminPollConfig',
+    'django_cleanup.apps.CleanupConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

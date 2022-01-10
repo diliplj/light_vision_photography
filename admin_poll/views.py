@@ -80,8 +80,8 @@ def banner_add(request):
 						banner_image = image,banner_video = request.POST.get('banner_video'),
 						banner_category =  request.POST.get('banner_category')
 					)
-				
-				result,msg = api.create_signature(image_list,request.user)
+					img_data =Banner.objects.latest('updated_on')
+					result,msg = api.create_signature(img_data.id,category,request.user)
 				return redirect('home')
 			else:
 				return HttpResponse("Something Worng")

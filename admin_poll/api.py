@@ -9,13 +9,11 @@ import logging
 from wand.image import Image
 
 
-def create_signature(id=None,category=None,user_name=None):
-    if category and id and user_name:
-        banner_img_data = Banner.objects.filter(banner_image=id,banner_category=category)
-        print("banner_img_data----",banner_img_data)
+def create_signature(img_data=None,category=None,user_name=None):
+    if category and img_data and user_name:
+        banner_img_data = Banner.objects.filter(id=img_data, banner_category=category)
         for img in banner_img_data:
-            print("img---",img)
-            img_sign = Image(filename=str(settings.BASE_DIR)+str(img.banner_image.url))
+            img_sign = Image(filename=str(settings.MEDIA_ROOT)+"/"+str(img.banner_image))
             sign=img_sign.signature
             if not ImageDuplicate.objects.filter(image_signature=sign).exists(): 
                 ImageDuplicate.objects.create(image_name=img.banner_image.name,
@@ -25,8 +23,7 @@ def create_signature(id=None,category=None,user_name=None):
             else:
                 result= False
                 msg= "Image already exists"
-                ImageDuplicate.objects.filter(image_name=img.banner_image.name,image_signature=sign).delete()
-                Banner.objects.filter(banner_category=category, banner_image=img.banner_image).delete()
+                Banner.objects.filter(id=img.id,banner_category=category).delete()
                 return result , msg
         
         result= False
