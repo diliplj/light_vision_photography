@@ -128,13 +128,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'media', 'sdata')
+STATIC_ROOT = os.path.join(BASE_DIR, 'admin_poll', 'media', 'sdata')
+print(STATIC_ROOT)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'ddata')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'admin_poll', 'media', 'ddata')
+
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '/media/', 'ssdata'),
+    os.path.join(BASE_DIR, 'admin_poll', 'media', 'ssdata'),
     # os.path.join(SITE_ROOT, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.

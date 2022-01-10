@@ -80,8 +80,8 @@ def banner_add(request):
 						banner_image = image,banner_video = request.POST.get('banner_video'),
 						banner_category =  request.POST.get('banner_category')
 					)
-				result,msg = api.create_signature(category,request.user)
-				print("result,msg---",result,msg)
+				
+				result,msg = api.create_signature(image_list,request.user)
 				return redirect('home')
 			else:
 				return HttpResponse("Something Worng")
@@ -99,7 +99,6 @@ def home(request):
 	try:
 		template = "admin_poll/home.html"
 		if request.method =="GET":
-			print(request.GET)
 			data =  Banner.objects.filter(datamode="Active")
 			post_data = Post.objects.filter(datamode="Active")
 			gallery_data = Gallery.objects.filter(datamode="Active")
@@ -108,7 +107,7 @@ def home(request):
 				"post_data":post_data,
 				"gallery_data":gallery_data,
 				"photos":Photos.objects.all(),
-				"page_kwargs" : settings.STATIC_ROOT
+				"page_kwargs" : settings.STATIC_URL
 			} 
 	except Exception as e:
 		print("eeee",e)

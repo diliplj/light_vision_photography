@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title> Banner </title>
-    <link rel="stylesheet" href="{{page_kwargs}}/css/mystyle.css">
-</head>
+    <title> Banner </title>
+    {{page_kwargs}}css/mystyle.css
+    <link rel="stylesheet" href="{{page_kwargs}}css/mystyle.css">
 </head>
 <body>
 <form method="POST" enctype="multipart/form-data">
@@ -44,8 +44,9 @@
 	{% for data in form %}
 		<div>{{data.label}}</div>
 		<div>{{data.category}}</div>
+        {{ data.banner_image.url }}
+       
         <img src="{{ data.banner_image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
-        
         <!-- <video width="500" height="500" controls >
             <source src="{{data.banner_video.url}}" type="video/mp4">
             <b>{{video.title}}</b>

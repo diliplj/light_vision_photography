@@ -9,12 +9,12 @@ import logging
 from wand.image import Image
 
 
-def create_signature(category=None,user_name=None):
-    if category and user_name:
-        banner_img_data = Banner.objects.filter(banner_category=category)
+def create_signature(id=None,category=None,user_name=None):
+    if category and id and user_name:
+        banner_img_data = Banner.objects.filter(banner_image=id,banner_category=category)
+        print("banner_img_data----",banner_img_data)
         for img in banner_img_data:
-            print("str(settings.BASE_DIR)+str(img.banner_image.url)",str(settings.MEDIA_ROOT)+"/"+str(img.banner_image))
-
+            print("img---",img)
             img_sign = Image(filename=str(settings.BASE_DIR)+str(img.banner_image.url))
             sign=img_sign.signature
             if not ImageDuplicate.objects.filter(image_signature=sign).exists(): 
