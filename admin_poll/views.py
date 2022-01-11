@@ -40,9 +40,7 @@ def add_user(request):
 		user_data = None
 		if request.method == "POST":
 			form = UserForm(request.POST)
-			print(request.POST,"------")
 			if form.is_valid():
-				print(form,"1111")
 				to_email_id= form.cleaned_data.get('email')
 				name = form.cleaned_data.get('username')
 				password = form.cleaned_data.get('password')
@@ -56,10 +54,10 @@ def add_user(request):
 					AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(password=make_password(password))
 					UserRole.objects.create(user=user_data,role=role_data,datamode="Active")
 					return redirect('login')
-				else:
-					return HttpResponse("This ",to_email_id, " is already exists")
-			else:
-				return HttpResponse("Something Went Wrong")
+			# 	else:
+			# 		return HttpResponse("This ",to_email_id, " is already exists")
+			# else:
+			# 	return HttpResponse("Something Went Wrong")
 		context['form'] = form
 	except Exception as e:
 		print("error----",e)
@@ -81,7 +79,9 @@ def banner_add(request):
 						banner_category =  request.POST.get('banner_category')
 					)
 					img_data =Banner.objects.latest('updated_on')
-					result,msg = api.create_signature(img_data.id,category,request.user)
+					data_from = "banner"+str(img_data.id)
+					print("data_from---",data_from)
+					result,msg = api.create_signature(img_data.id,category,request.user,data_from)
 				return redirect('home')
 			else:
 				return HttpResponse("Something Worng")
@@ -99,7 +99,8 @@ def home(request):
 	try:
 		template = "admin_poll/home.html"
 		if request.method =="GET":
-			data =  Banner.objects.filter(datamode="Active")
+			data =  Banner.objects.filter(datamode="Active").order_by('-id')[:3]
+			print("data --",data)
 			post_data = Post.objects.filter(datamode="Active")
 			gallery_data = Gallery.objects.filter(datamode="Active")
 			context = {
@@ -141,13 +142,13 @@ def edit_banner(request, id):
 
 def banner_delete(request, id):
 	try:
-		if id:
-			if request.method == "GET":
-				datas = Banner.objects.filter(id=id)
-				for data in datas:
-					ImageDuplicate.objects.filter(image_name=data.banner_image).delete()
-				Banner.objects.filter(id=id).delete()
-				return redirect("home")				
+		if id and request.method == "GET":
+			datas = Banner.objects.filter(id=id)
+			for data in datas:
+				value = "banner"+str(data.id)
+				ImageDuplicate.objects.filter(data_from=value,data_from_id=data.id).delete()
+			Banner.objects.filter(id=id).delete()
+			return redirect("home")				
 	except Exception as e:
 		print("eee",e)
 	

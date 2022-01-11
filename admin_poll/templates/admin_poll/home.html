@@ -1,75 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-    <title> Banner </title>
-    {{page_kwargs}}css/mystyle.css
-    <link rel="stylesheet" href="{{page_kwargs}}css/mystyle.css">
-</head>
-<body>
-<form method="POST" enctype="multipart/form-data">
+{% extends 'navbar.html' %}
+{% load ttags %}
+{% block content %}
+<div class="container bg-white h-100 d-flex justify-content-center">
+    <div class="col-12 col-md-5 align-self-center text-start p-5 shadow-md border">
+    <form method="POST" enctype="multipart/form-data">
 
-	{% csrf_token %}
+        {% csrf_token %}
 
-    <h3>Gallery View</h3>
+        <h3>Gallery View</h3>
 
-    {% for data in gallery_data %}
-    
-        <div>{{data.label}}</div>
-        <div>{{data.user}}</div>
-        <div>{{data.category}}</div> 
-        <div>{{data.short_description}}</div>
-        <div>{{data.detail_description}}</div>
-        <a href="{% url 'edit_gallery' data.id %}"> Edit Gallery </a>
-        <a href="{% url 'delete_gallery' data.id %}"> Delete Gallery </a>
-    {% endfor %}
-    
-    {% for photo in photos %}
-    <div><img src="{{ photo.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
-    {% endfor %}
-
-    {% for data in post_data %}
-        <div>{{data.label}}</div>
-        <div>{{data.user}}</div>
-        <div>{{data.category}}</div>
-        <div><img src="{{ data.image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
-        <div>{{data.short_description}}</div>
-        <div>{{data.detail_description}}</div>
-        <a href="{% url 'edit_post' data.id %}"> Edit Post </a>
-        <a href="{% url 'delete_post' data.id %}"> Delete Post </a>
-    {% endfor %}
-
-    <h3>Banner View</h3>
-
-	{% for data in form %}
-		<div>{{data.label}}</div>
-		<div>{{data.category}}</div>
-        {{ data.banner_image.url }}
-       
-        <img src="{{ data.banner_image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
-        <!-- <video width="500" height="500" controls >
-            <source src="{{data.banner_video.url}}" type="video/mp4">
-            <b>{{video.title}}</b>
-        </video> -->
+        {% for data in gallery_data %}
         
-        <a href="{% url 'edit_banner' data.id %}">Edit Banner </a>
-            <br>
-        <a href="{% url 'banner_delete' data.id %}">Delete Banner </a>    
-    {% endfor %}
-    <a href="{% url 'banner_add' %}"> Banner Add </a>  
+            <div>{{data.label}}</div>
+            <div>{{data.user}}</div>
+            <div>{{data.category}}</div> 
+            <div>{{data.short_description}}</div>
+            <div>{{data.detail_description}}</div>
+            <a href="{% url 'edit_gallery' data.id %}"> Edit Gallery </a>
+            <a href="{% url 'delete_gallery' data.id %}"> Delete Gallery </a>
+        {% endfor %}
+        
+        {% for photo in photos %}
+        <div><img src="{{ photo.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
+        {% endfor %}
 
-    <br>
-    {% comment %}
-    <!-- <a href="{% url 'add_user_password_change' request.user.id %}"> Change My Password </a> -->
-    {% endcomment %}
-</form>
-<a href="{% url 'login' %}"> Already have an account? </a> <br>
-<a href="{% url 'add_user' %}"> Add new user </a> <br>
-<a href="{% url 'post' %}"> Add post </a> <br>
-<a href="{% url 'gallery' %}"> Add Gallery </a> <br>
-<a href="{% url 'package' %}"> Add Package   </a> <br>
-<a href="{% url 'events' %}"> Add Events   </a> <br>
-<a href="{% url 'password_reset' %}"> password_reset   </a> <br>
-<a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+        {% for data in post_data %}
+            <div>{{data.label}}</div>
+            <div>{{data.user}}</div>
+            <div>{{data.category}}</div>
+            <div><img src="{{ data.image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
+            <div>{{data.short_description}}</div>
+            <div>{{data.detail_description}}</div>
+            <a href="{% url 'edit_post' data.id %}"> Edit Post </a>
+            <a href="{% url 'delete_post' data.id %}"> Delete Post </a>
+        {% endfor %}
+
+        <h3>Banner View</h3>
+
+        {% for data in form %}
+            <div>{{data.label}}</div>
+            <div>{{data.category}}</div>
+            {{ data.banner_image.url }}
+        
+            <img src="{{ data.banner_image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
+            <!-- <video width="500" height="500" controls >
+                <source src="{{data.banner_video.url}}" type="video/mp4">
+                <b>{{video.title}}</b>
+            </video> -->
+            
+            <a href="{% url 'edit_banner' data.id %}">Edit Banner </a>
+                <br>
+            <a href="{% url 'banner_delete' data.id %}">Delete Banner </a>    
+        {% endfor %}
+        <a href="{% url 'banner_add' %}"> Banner Add </a>  
+
+        <br>
+        {% comment %}
+        <!-- <a href="{% url 'add_user_password_change' request.user.id %}"> Change My Password </a> -->
+        {% endcomment %}
+    </form>
+    <a href="{% url 'login' %}"> Already have an account? </a> <br>
+    <a href="{% url 'add_user' %}"> Add new user </a> <br>
+    <a href="{% url 'post' %}"> Add post </a> <br>
+    <a href="{% url 'gallery' %}"> Add Gallery </a> <br>
+    <a href="{% url 'package' %}"> Add Package   </a> <br>
+    <a href="{% url 'events' %}"> Add Events   </a> <br>
+    <a href="{% url 'password_reset' %}"> password_reset   </a> <br>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+</div>
+{% endblock %}

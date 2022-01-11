@@ -10,7 +10,7 @@ from django.contrib.auth.models import User, AbstractUser
 # Create your models here.
 
 class AddUser(AbstractUser):
-	# email    = models.EmailField(max_length=255, null=False)
+	email  = models.EmailField(max_length=255, null=False)
 	# username   = models.CharField(max_length=255, unique=True, null=True)
 	# password = models.CharField(max_length=255, null=False)
 	# is_active   = models.BooleanField(default=True)  
@@ -259,6 +259,8 @@ class AboutUs(models.Model):
 class ImageDuplicate(models.Model):
 	image_name = models.CharField(null=True, max_length=255)
 	image_url = models.CharField(null=True, max_length=255)
+	data_from = models.CharField(null=False, max_length=255)
+	data_from_id = models.CharField(null=False, max_length=255)
 	image_signature = models.CharField(null=False, max_length=255)
 	created_on = models.DateTimeField(auto_now_add=True)
 	created_by = models.CharField(null=True, max_length=255)

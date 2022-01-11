@@ -8,12 +8,17 @@
         <form method="post" action="" novalidate id="signup_form">
             {% csrf_token %}
             {% for field in form %}
+                {% if field.name == 'phone_number' %}
+                <div class="form-floating mb-3">
+                    {{field|addcss:"form-control"}}
+                    {{field.label_tag}}
                 </div>
                 {% for error in field.errors %}
                 <div>
                     <span class="help small text-danger">{{error}}</span>
                 </div>
                 {% endfor %}
+                {% else %}
                 <div class="form-floating mb-3">
                     {{field|addcss:"form-control"}}
                     {{field.label_tag}}
@@ -24,7 +29,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                
+                {% endif %}
             {% endfor %}
 
             <div class="d-grid gap-2">
