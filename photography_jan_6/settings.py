@@ -154,3 +154,13 @@ AUTH_USER_MODEL = 'admin_poll.AddUser'
 
 LOGIN_REDIRECT_URL = "/admin_page/home/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+# My mail 
+MY_MAIL = "diliplj5@gmail.com"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = MY_MAIL
+EMAIL_HOST_PASSWORD = 'xdxauijjaibxrihm'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'

@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password, check_password
 
-# from .decorators import *
+from admin_poll.decorators import *
 from admin_poll.models import *
 from admin_poll.forms import *
 # from admin_poll import logger_file as ub 
@@ -64,6 +64,8 @@ def add_user(request):
 	return render(request,template,context)
 
 
+@logged_in
+@all_admin
 def banner_add(request):
 	try:
 		template = 'create_banner.html'
@@ -95,6 +97,8 @@ def banner_add(request):
 	
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def home(request):
 	try:
 		template = "admin_poll/home.html"
@@ -114,7 +118,8 @@ def home(request):
 		print("eeee",e)
 	return render(request, template, context)    
 
-
+@logged_in
+@all_admin
 def edit_banner(request, id):
 	try:
 		template = "edit_banner.html"
@@ -139,7 +144,7 @@ def edit_banner(request, id):
 	
 	return render(request, template, context)    
 
-
+@all_admin
 def banner_delete(request, id):
 	try:
 		if id and request.method == "GET":
@@ -152,7 +157,7 @@ def banner_delete(request, id):
 	except Exception as e:
 		print("eee",e)
 	
-
+@all_admin
 def post(request):
 	try:
 		account_user =AddUser.objects.filter(email=request.user.email, datamode="Active").last()
@@ -179,6 +184,7 @@ def post(request):
 		print("error---",e)	
 	return render(request, template, context)
 
+@all_admin
 def edit_post(request, id):
 	try:
 		template = "edit_post.html"
@@ -204,7 +210,8 @@ def edit_post(request, id):
 	
 	return render(request, template, context)
 
-
+@logged_in
+@all_admin
 def delete_post(request, id):
 	try:
 		if id:
@@ -214,7 +221,8 @@ def delete_post(request, id):
 	except Exception as e:
 		print("eee",e)
 
-
+@logged_in
+@all_admin
 def gallery(request):
 	try:
 		account_user =AddUser.objects.filter(email=request.user.email, datamode="Active").last()
@@ -248,7 +256,8 @@ def gallery(request):
 		print("error---",e)	
 	return render(request, template, context)
 
-
+@logged_in
+@all_admin
 def edit_gallery(request, id):
 	try:
 		template = "edit_post.html"
@@ -274,6 +283,8 @@ def edit_gallery(request, id):
 	
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def delete_gallery(request, id):
 	try:
 		if id:
@@ -284,7 +295,8 @@ def delete_gallery(request, id):
 		print("eee",e)
 
 
-
+@logged_in
+@all_admin
 def package(request):
 	try:
 		template = "package.html"
@@ -309,6 +321,8 @@ def package(request):
 
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def edit_package(request, id):
 	try:
 		template = "edit_package.html"
@@ -334,6 +348,8 @@ def edit_package(request, id):
 	
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def events(request):
 	try:
 		template = "events.html"
@@ -354,6 +370,8 @@ def events(request):
 
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def edit_events(request, id):
 	try:
 		template = "edit_events.html"
@@ -379,6 +397,8 @@ def edit_events(request, id):
 	
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def equipment(request):
 	try:
 		template = "equipment.html"
@@ -399,6 +419,8 @@ def equipment(request):
 
 	return render(request, template, context)
 
+@logged_in
+@all_admin
 def edit_equipment(request, id):
 	try:
 		template = "edit_equipment.html"

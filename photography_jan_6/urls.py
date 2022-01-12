@@ -10,6 +10,7 @@ urlpatterns = [
 	path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),name='login'),
 
 	path('accounts/logout/', auth_views.LogoutView.as_view(template_name='logout.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),name='logout'),
+
 	path('accounts/password/reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_email.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}), name='password_reset'),
 	
 	path('accounts/password/reset/done/',auth_views.PasswordResetDoneView.as_view(extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}), 
