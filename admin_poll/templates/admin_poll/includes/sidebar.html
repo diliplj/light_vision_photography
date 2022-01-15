@@ -1,0 +1,62 @@
+<!--- side bar -->
+<div id="sidebarMenu" class="flex-grow-0 mt-2 position-fixed bg-dark overflow-auto border-end border-dark" style="min-width:250px;">
+  <div class="d-grid p-4">
+  <button type="button" class="btn btn-primary btn-block btn-lg text-red" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2"></i>New iStory</button>
+  </div>
+
+  <div class="p-3">
+    <p class="bi bi-plus-lg fs-7 fw-bold me-2" style="font-weight: bold; font-size: large;">User</p>
+    <ul class="navbar-nav nav-pills">
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'add_user' %}active {% else %}text-secondary {% endif %}" aria-current="page" href="{% url 'add_user' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>Add new user</a>
+      </li>
+    </ul>
+
+  </div>
+  <div class="p-3">
+    <p class="fs-7 fw-bold text-uppercase text-secondary">Stories</p>
+    <ul class="navbar-nav nav-pills">
+      <!-- <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'new' %}active{% else %}text-secondary{% endif %}" aria-current="page" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>New</a>
+      </li> -->
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'published' %}active{% else %}text-secondary {% endif %}" aria-current="page" href="#"><i class="bi bi-cloud-check fs-7 fw-bold me-2 ms-2"></i>Published</a>
+      </li>
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'recent' %}active{% else %}text-secondary {% endif %}" aria-current="page" href="#"><i class="bi bi-clock fs-7 fw-bold me-2 ms-2"></i>Recents</a>
+      </li>
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'drafts' %}active{% else %}text-secondary{% endif %}" aria-current="page" href="#"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>Draft</a>
+      </li>
+    </ul>
+  </div>
+  <div class="p-3">
+    <p class="fs-7 fw-bold text-uppercase text-secondary">Library</p>
+    <ul class="navbar-nav nav-pills">
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'videos' %}active{% else %}text-secondary {% endif %}" aria-current="page" href="#"><i class="bi bi-camera-reels fs-7 fw-bold me-2 ms-2"></i>Videos</a>
+      </li>
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'images' %}active{% else %}text-secondary {% endif %}" aria-current="page" href="#"><i class="bi bi-images fs-7 fw-bold me-2 ms-2"></i>Images</a>
+      </li>
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'audios' %}active{% else %}text-secondary {% endif %}" aria-current="page" href="#"><i class="bi bi-music-note-beamed fs-7 fw-bold me-2 ms-2"></i>Audios</a>
+      </li>
+      <li class="nav-item small">
+        <a class="nav-link text-capitalize {% if active == 'icons' %}active{% else %}text-secondary {% endif %}" aria-current="page" href="#"><i class="bi bi-emoji-heart-eyes fs-7 fw-bold me-2 ms-2"></i>Icons</a>
+      </li>
+    </ul>
+  </div>
+  <div class="p-3 pb-5">
+    <p class="fs-7 fw-bold text-uppercase text-secondary">Projects</p>
+    <ul class="navbar-nav nav-pills mb-2" id="id_project_side_menu">
+      <li class="nav-item">
+        <a class="nav-link text-capitalize text-secondary small d-flex align-items-center " href="javascript:void(0)" onclick="javascript:load_project_create_form()"  data-bs-toggle="modal" data-bs-target="#NewProject">
+          <i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
+          New
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--- side bar -->

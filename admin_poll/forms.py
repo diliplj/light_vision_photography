@@ -8,6 +8,7 @@ from django.contrib.auth.models import User, AbstractBaseUser
 from django.forms import Widget
 import re
 from wand.image import Image
+from django.contrib.auth.forms import *
 
 
 def password_validator(password):
@@ -184,7 +185,20 @@ class EditEquipmentForm(forms.ModelForm):
 		model = Equipment
 		exclude = ['slug','updated_on','datamode','created_on']
 
+class PasswordResetConfirmForm(SetPasswordForm):
+	def __init__(self, *args, **kwargs):
+		super(PasswordResetConfirmForm, self).__init__(*args, **kwargs)
 
+	def clean_new_password2(self):
+		password1 = self.cleaned_data.get('new_password1')
+		password2 = self.cleaned_data.get('new_password2')
+		print("password1----",password1)
+		print("password2----",password2)
+		if password1 and password2:
+			if password1 != password2:
+				raise forms.ValidationError("Password miss matched")
+		return password2	
+		
 # class PriceListForm(forms.ModelForm):
 # 	class Meta:
 # 		model = PriceList

@@ -6,12 +6,12 @@ from django.contrib.auth import authenticate, login#, logout
 from django.conf import settings
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.views import LoginView, PasswordResetConfirmView, PasswordResetView, PasswordChangeView, \
+    PasswordResetDoneView
 
 from admin_poll.decorators import *
 from admin_poll.models import *
 from admin_poll.forms import *
-# from admin_poll import logger_file as ub 
-# from photography_jan_6.settings import MY_MAIL
 from photography_jan_6 import settings
 import sys
 import logging
@@ -112,7 +112,8 @@ def home(request):
 				"post_data":post_data,
 				"gallery_data":gallery_data,
 				"photos":Photos.objects.all(),
-				"page_kwargs" : settings.STATIC_URL
+				"page_kwargs" : settings.STATIC_URL,
+				"page_kwarg" : settings.STATICFILES_DIRS,
 			} 
 	except Exception as e:
 		print("eeee",e)
@@ -444,3 +445,10 @@ def edit_equipment(request, id):
 	except Exception as e:
 		print("eeee",e)
 	return render(request, template, context)
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    form_class = PasswordResetConfirmForm
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetConfirm, self).__init__(*args, **kwargs)
+

@@ -1,0 +1,110 @@
+{% load ttags %}
+<div class="d-flex bg-dark shadow border border-dark mb-3 card_hover">
+  <div class="flex-grow-0 border-secondary " >
+    {% if data.first_scene.thumbnail %}
+    <div class="position-relative">
+      <img src="{{data.first_scene.thumbnail|get_file_media_link}}" class="img-fluid" alt="..." style="width:250px;">
+      {% if data.story.long_link %}
+      <div class="play red">
+        <a class="text-light text-decoration-none" href="{% url 'story_preview' data.story.uid data.story.uid_friendly %}"><i class="bi bi-play-fill fs-2"></i></a>
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="position-relative">
+    <img src="{{static_url}}Images/video.jpg" class="img-fluid" alt="..." style="width:250px;">
+    {% if data.first_scene.thumbnail %}
+    <div class="play red">
+      <a class="text-light text-decoration-none" href="{% url 'story_preview' data.story.uid data.story.uid_friendly %}"><i class="bi bi-play-fill fs-2"></i></a>
+    </div>
+    {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="flex-grow-1">
+    <div class="card-body">
+      <small class="text-secondary me-5">{{data.story.project.name}}</small>
+      <p class="fs-5 fw-bold card-title text-secondary" >
+        <a class="text-decoration-none text-secondary" href="{% url 'story_detail' data.story.uid data.story.uid_friendly  %}">{{data.story.name}}</a>
+      </p>
+      <p class="card-text">
+        <small class="text-muted me-5">{% if data.story.duration %}Duration {{data.story.duration}} seconds |{% endif %} Last updated {{data.story.updated_on|convert_data_time:request}} {% comment %}| 25 views{% endcomment %}</small><br/>
+        <small class="text-uppercase text-warning me-5">{{data.story.get_status_display}}</small>
+      </p>
+    </div>
+  </div>
+  <div class="flex-grow-0 border-secondary d-none story_option">
+    <div class="btn-group">
+      <button type="button" class="btn text-muted" data-bs-toggle="dropdown" aria-expanded="true">
+        <i class="bi bi-gear fs-7 fw-bold"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end bg-dark">
+        <li><a class="dropdown-item  text-muted"
+          href="{% url 'linear_view' data.story.uid data.story.uid_friendly %}">Edit</a></li>
+      <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('rename', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Rename</a></li>
+      <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('move', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Move to</a></li>
+      <!-- <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('copy', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Make a copy</a></li> -->
+      <!-- <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:void(0)">Make a copy</a></li> -->
+      <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('delete', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Delete</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="card bg-dark mb-3 d-none d-md-block d-lg-block" style="cursor:pointer">
+  <div class="card-body">
+    <div class="d-flex  align-items-center">
+      <div class="flex-shrink-0"
+        onclick='window.location="{% if data.story.get_status_display == "Draft" %}{% url "story_detail" data.story.uid data.story.uid_friendly  %}{% else %}{% url "story_detail" data.story.uid data.story.uid_friendly  %} {% endif %}"'>
+        {% if data.first_scene.thumbnail %}
+        <img src="{{data.first_scene.thumbnail|get_file_media_link}}" width="130px" alt="...">
+        {% else %}
+        <img src="{{static_url}}Images/blank.jpg" width="130px" alt="...">
+        {% endif %}
+      </div>
+      <div class="text-light ms-3"
+        onclick='window.location="{% if data.story.get_status_display == "Draft" %}{% url "story_detail" data.story.uid data.story.uid_friendly  %}{% else %}{% url "story_detail" data.story.uid data.story.uid_friendly  %} {% endif %}"'>
+        <small class="m-0 font-weight-lighter text-muted">{{data.story.project.name}}</small>
+        <p class="card-title m-0 h5">{{data.story.name}}</p>
+        <small class="m-0 font-weight-lighter text-muted">{{data.story.duration}} mins</small>
+      </div>
+      <div class="ms-auto text-warning ms-5">
+        {{data.story.get_status_display}}
+      </div>
+      <div class="ms-5 d-none d-md-block d-lg-block">
+        <span class="text-muted"
+          ><a href="{% url 'story_preview' data.story.uid data.story.uid_friendly %}"><img
+            src="{{static_url}}Images/play.svg" width="25px" class="me-2" alt="..."></a></span>
+      </div>
+      <div>
+        <div class="dropdown">
+          <a href="#" class="d-block link-dark text-decoration-none" id="userMenu" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="{{static_url}}Images/option.svg" width="25px" class="me-2" alt="...">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end small bg-dark shadow-lg position-absolute rounded p-0 fs-7 mt-1"
+            style="min-width:14rem" aria-labelledby="userMenu">
+            <li><a class="dropdown-item  text-muted"
+                href="{% url 'linear_view' data.story.uid data.story.uid_friendly %}">Edit</a></li>
+            <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('rename', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Rename</a></li>
+            <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('move', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Move to</a></li>
+            <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('copy', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Make a copy</a></li>
+            <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:void(0)">Make a copy</a></li>
+            <li><a class="dropdown-item text-muted" href="javascript:void(0)" onclick="Javascript:modal_type('delete', '{{data.story.uid}}', '{{data.story.uid_friendly}}', 'get')">Delete</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

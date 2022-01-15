@@ -1,7 +1,7 @@
 from admin_poll import views
 from django.urls import path
 from django.contrib.auth import views as auth_views
-
+from django.conf import settings
 
 urlpatterns = [
     path('', views.add_user, name = "add_user"),
@@ -10,7 +10,10 @@ urlpatterns = [
     # path('logout/',views.logout_page, name="logout"),
    # path('login/',views.login_page, name="login"),
     # path('add_user_password_change/<int:id>/',views.add_user_password_change, name="add_user_password_change"),
-    
+
+	path('accounts/password/reset/confirm/<uidb64>/<token>/',views.PasswordResetConfirm.as_view(extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),
+		  name='password_reset_confirm'),
+
     path("home/",views.home, name="home"),
     path("banner_add/",views.banner_add, name="banner_add"),
     path("banner_delete/<int:id>/",views.banner_delete, name="banner_delete"),    

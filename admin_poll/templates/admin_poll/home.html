@@ -1,66 +1,54 @@
-    <form method="POST" enctype="multipart/form-data">
-        {{request.user}}-----    
-        {% csrf_token %}
 
-        <h3>Gallery View</h3>
+{% extends 'base.html' %}
 
-        {% for data in gallery_data %}
-        
-            <div>{{data.label}}</div>
-            <div>{{data.user}}</div>
-            <div>{{data.category}}</div> 
-            <div>{{data.short_description}}</div>
-            <div>{{data.detail_description}}</div>
-            <a href="{% url 'edit_gallery' data.id %}"> Edit Gallery </a>
-            <a href="{% url 'delete_gallery' data.id %}"> Delete Gallery </a>
-        {% endfor %}
-        
-        {% for photo in photos %}
-        <div><img src="{{ photo.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
-        {% endfor %}
-
-        {% for data in post_data %}
-            <div>{{data.label}}</div>
-            <div>{{data.user}}</div>
-            <div>{{data.category}}</div>
-            <div><img src="{{ data.image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /></div>
-            <div>{{data.short_description}}</div>
-            <div>{{data.detail_description}}</div>
-            <a href="{% url 'edit_post' data.id %}"> Edit Post </a>
-            <a href="{% url 'delete_post' data.id %}"> Delete Post </a>
-        {% endfor %}
-
-        <h3>Banner View</h3>
-
-        {% for data in form %}
-            <div>{{data.label}}</div>
-            <div>{{data.category}}</div>
-            {{ data.banner_image.url }}
-        
-            <img src="{{ data.banner_image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
-            <!-- <video width="500" height="500" controls >
-                <source src="{{data.banner_video.url}}" type="video/mp4">
-                <b>{{video.title}}</b>
-            </video> -->
-            
-            <a href="{% url 'edit_banner' data.id %}">Edit Banner </a>
-                <br>
-            <a href="{% url 'banner_delete' data.id %}">Delete Banner </a>    
-        {% endfor %}
-        <a href="{% url 'banner_add' %}"> Banner Add </a>  
-
-        <br>
-        {% comment %}
-        <!-- <a href="{% url 'add_user_password_change' request.user.id %}"> Change My Password </a> -->
-        {% endcomment %}
-    </form>
-    <a href="{% url 'login' %}"> Already have an account? </a> <br>
-    <a href="{% url 'add_user' %}"> Add new user </a> <br>
-    <a href="{% url 'post' %}"> Add post </a> <br>
-    <a href="{% url 'gallery' %}"> Add Gallery </a> <br>
-    <a href="{% url 'package' %}"> Add Package   </a> <br>
-    <a href="{% url 'events' %}"> Add Events   </a> <br>
-    <a href="{% url 'password_reset' %}"> password_reset   </a> <br>
-    <a href="{% url 'logout' %}">Logout</a>
+{% block content %}
+<style>
+  .hover-effect:hover {
+    color: #393a3d !important;
+  } 
+  ::-webkit-scrollbar{
+    display: none;
+  }
+</style>
+<!-- Start Header-->
+{% include './Includes/header.html' %}
+<!-- End Header -->
+<div class="d-flex mt-5">
+  <!-- <div class="flex-grow-0 mt-1 bg-dark shadow-lg side_shadow" style="min-width:250px;">
+    {% include './Includes/sidebar.html' with active='home' %}
+    {% include './Includes/mobile_sidebar.html' with active='home' %}
+  </div> -->
+  <!--- main bar -->
+  <div class="p-5 flex-grow-1">
+    <!--- home sample -->
+    <div class="d-grid text-center my-8">
+      <p class="fs-7 text-center text-uppercase mb-1 text-warning">HI Admin !</p>
+      <p class="fs-7 text-center text-secondary"> Light vision Photography.</p>
+    </div>
+    <!-- <div class="row justify-content-evenly mb-5 m-1 ">
+      <div class="col-4 p-5 text-center card_hover">
+        <img class="py-3" src="{{page_kwargs}}image/new.svg"  alt="Card image cap">
+        <p class="fs-5 text-center fw-bold text-secondary mb-0">Create Stories</p>
+        <p class="fs-7 text-center text-secondary">Construct, Test, and Publish your iStory from scratch or upload an existing file</p>
+      </div>
+      <div class="col-4 p-5 text-center card_hover">
+        <img class="py-3" src="{{page_kwargs.static_url}}Images/props.svg"  alt="Card image cap">
+        <p class="fs-5 text-center fw-bold text-secondary mb-0">Asset Library</p>
+        <p class="fs-7 text-center text-secondary">Add your own images, videos, audio and icons to use for your iStory creation</p>
+      </div>
+      <div class="col-4 p-5 text-center card_hover">
+        <img class="py-3" src="{{page_kwargs.static_url}}Images/documents.svg"  alt="Card image cap">
+        <p class="fs-5 text-center fw-bold text-secondary mb-0">Manage your Projects</p>
+        <p class="fs-7 text-center text-secondary">Organize your iStories by project name and share with your team</p>
+      </div>
+    </div> -->
+    
+    <!-- istory -->
+    <!--- home sample -->
+  </div>
+  <!--- main bar -->
 </div>
-</div>
+{% endblock %}
+{% block body_js %}
+{% include './Includes/home_script.html' %}
+{% endblock %}

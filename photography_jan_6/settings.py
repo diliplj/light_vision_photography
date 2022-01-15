@@ -163,4 +163,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = MY_MAIL
 EMAIL_HOST_PASSWORD = 'xdxauijjaibxrihm'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'TestSite Team <noreply@example.com>'
+DEFAULT_FROM_EMAIL = 'Light Vision Photography Team <noreply@example.com>'
