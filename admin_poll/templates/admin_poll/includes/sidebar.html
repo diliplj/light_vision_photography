@@ -12,12 +12,13 @@ color: black;
 }
 </style>
 <!--- side bar -->
-<div id="sidebarMenu" class="flex-grow-0 mt-1 position-fixed border-white" style="min-width:250px; line-height:2.5; background-color: #364FF5; border-right: 1px solid #364FF5;">
+<div id="sidebarMenu" class="flex-grow-0 mt-1 position-absolute border-white" style="min-width:250px; line-height:2.5; background-color: #364FF5; border-right: 1px solid #364FF5;">
   <div class="d-grid p-3">
-    <button type="button" class="btn btn-block btn-lg" data-bs-toggle="modal" data-bs-target="#AddStory" style="background-color: #247CF0; font-size:large; font-weight: 500; color: white;"><i class="bi bi-plus-lg fs-7 me-2"></i>Lights Vision</button>
+    <img src="{{page_kwargs}}image/logo.png" width="180px" class="me-4" alt="...">
+    <!-- <button type="button" class="btn btn-block btn-lg" data-bs-toggle="modal" data-bs-target="#AddStory" style="background-color: #247CF0; font-size:large; font-weight: 500; color: white;"><i class="bi bi-plus-lg fs-7 me-2"></i>Lights Vision</button> -->
   </div>
   <div class="p-3 px-1">
-    <p class="text-uppercase text-light ">Home</p>
+    <p class="text-uppercase text-light px-2">Home</p>
     <ul class="navbar-nav nav-pills">
       <li class="nav-item medium">
         <a class="nav-link text-capitalize {% if active == 'banner_add' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'banner_add' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
@@ -47,12 +48,12 @@ color: black;
     </ul>
   </div>
   <div class="p-3 my-0">
-    <p class="bi bi-plus-lg fs-7 fw-bold me-2 text-light" style="font-weight: bold; font-size: large;">Account</p>
+    <p class="bi bi-plus-lg fs-7 fw-bold me-2 px-2 text-light" style="font-size: large;">Account</p>
     <ul class="navbar-nav nav-pills">
       <li class="nav-item medium">
         <a class="nav-link text-capitalize {% if active == 'add_user' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'add_user' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
           <img src="{{page_kwargs}}image/user.svg" width="20px" class="me-4" alt="...">
-          Add new user</a>
+          Add New User</a>
       </li>
       <li class="nav-item medium">
         <a class="nav-link text-capitalize {% if active == 'password_reset' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'password_reset' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>

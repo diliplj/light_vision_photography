@@ -25,7 +25,9 @@ var.save()
 NOTE : make_password('123') # make_password used to encrypt the password 
 because User model will allow encrpyt password only
 """
-
+"""
+Note : return redirect(request.META['HTTP_REFERER']) to redirect to previous url
+"""
 logger = logging.getLogger('app')
 
 def add_user(request):
@@ -54,10 +56,6 @@ def add_user(request):
 					AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(password=make_password(password))
 					UserRole.objects.create(user=user_data,role=role_data,datamode="Active")
 					return redirect('login')
-			# 	else:
-			# 		return HttpResponse("This ",to_email_id, " is already exists")
-			# else:
-			# 	return HttpResponse("Something Went Wrong")
 		context['form'] = form
 	except Exception as e:
 		print("error----",e)
