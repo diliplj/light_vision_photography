@@ -82,7 +82,7 @@ def banner_add(request):
 					)
 					img_data =Banner.objects.latest('updated_on')
 					data_from = "banner"+str(img_data.id)
-					print("data_from---",data_from)
+					
 					result,msg = api.create_signature(img_data.id,category,request.user,data_from)
 				return redirect('home')
 			else:
@@ -104,7 +104,12 @@ def home(request):
 		template = "admin_poll/home.html"
 		if request.method =="GET":
 			data =  Banner.objects.filter(datamode="Active").order_by('-id')[:3]
-			print("data --",data)
+			banner_count = Banner.objects.filter(datamode="Active").count()
+			gallery_count = Gallery.objects.filter(datamode="Active").count()
+			post_count = Post.objects.filter(datamode="Active").count()
+			user_count = AddUser.objects.filter(datamode="Active").count()
+			package_count = Package.objects.filter(datamode="Active").count()
+			event_count = Events.objects.filter(datamode="Active").count()
 			post_data = Post.objects.filter(datamode="Active")
 			gallery_data = Gallery.objects.filter(datamode="Active")
 			context = {
@@ -113,7 +118,8 @@ def home(request):
 				"gallery_data":gallery_data,
 				"photos":Photos.objects.all(),
 				"page_kwargs" : settings.STATIC_URL,
-				"page_kwarg" : settings.STATICFILES_DIRS,
+				"banner_count":banner_count,"gallery_count":gallery_count,"post_count":post_count,
+				"user_count":user_count,"package_count":package_count,"event_count":event_count,
 			} 
 	except Exception as e:
 		print("eeee",e)

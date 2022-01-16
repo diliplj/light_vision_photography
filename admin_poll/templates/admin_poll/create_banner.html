@@ -1,24 +1,18 @@
 
-<!-- {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block title %} Create Banner {% endblock %}
 
 {% block content %}
-<div class="container h-100 d-flex justify-content-center">
+<div class="container h-100 mt-5 d-flex justify-content-center">
     <div class="col-12 col-md-5 align-self-center text-start p-5 border">
         <p class="fs-4 fw-bold text-uppercase">Create new banner</p>
         <form method = "POST" enctype="multipart/form-data" accept="video/*">
             {% csrf_token %}
-            banner_image = models.ImageField(null=False, upload_to="blog_images/")
-            banner_video = models.URLField(null=True, max_length=252, blank=True)
-            banner_category = models.CharField(max_length=200)
-            <div class="mb-3">
-                <label for="formFileMultiple" class="fs-5 form-label ">{{form_data.banner_category.label}}</label>
-                {{form_data.banner_category}}    
-            </div>
-            
+               {{form_data.as_p}}
+
             <button class="btn btn-primary btn-block border-0" type="submit">Add Banner</button>    
         </form>
     </div>
 
 </div>
-{% endblock %} -->
+{% endblock %}

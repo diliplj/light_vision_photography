@@ -3,27 +3,81 @@
 
 {% block content %}
 <style>
+  .card:hover{
+    color: #393a3d !important;
+    transform:scale(0.9);
+  }
   .hover-effect:hover {
     color: #393a3d !important;
   } 
   ::-webkit-scrollbar{
     display: none;
   }
+ 
 </style>
 <!-- Start Header-->
 {% include './Includes/header.html' %}
-<!-- End Header -->
 <div class="d-flex mt-5">
-  <!-- <div class="flex-grow-0 mt-1 bg-dark shadow-lg side_shadow" style="min-width:250px;">
+  <div class="flex-grow-0 mt-1 bg-light side_shadow" style="min-width:250px;">
+    
     {% include './Includes/sidebar.html' with active='home' %}
+    {% comment %}
     {% include './Includes/mobile_sidebar.html' with active='home' %}
-  </div> -->
-  <!--- main bar -->
+    {% endcomment %}
+    
+  </div> 
+  
   <div class="p-5 flex-grow-1">
-    <!--- home sample -->
+    <!-- home sample -->
     <div class="d-grid text-center my-8">
       <p class="fs-7 text-center text-uppercase mb-1 text-warning">HI Admin !</p>
-      <p class="fs-7 text-center text-secondary"> Light vision Photography.</p>
+      <p class="fs-7 text-center text-secondary"> Lights vision Photography.</p>
+    </div>
+    
+    <div class="row">
+      <div class="card col-sm-4 card_hover" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/new.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+        <div class="card-body shadow-sm border-secondary" style="border: none;">
+          <h5 class="card-title text-center">Total Banner</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{banner_count}}</p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+      <div class="card col-sm-4 card_hover" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/gallery.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+        <div class="card-body shadow-sm border-secondary" style="border: none;">
+          <h5 class="card-title text-center">Total Gallery</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{gallery_count}}</p>
+        </div>
+      </div>
+      <div class="card col-sm-4 card_hover" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/package.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+        <div class="card-body shadow-sm border-secondary" style="border: none;">
+          <h5 class="card-title text-center">Total Package</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{package_count}}</p>
+        </div>
+      </div>
+      <div class="card col-sm-4 card_hover" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/post.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+        <div class="card-body shadow-sm border-secondary" style="border: none;">
+          <h5 class="card-title text-center">Total Post</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{post_count}}</p>
+        </div>
+      </div>
+      <div class="card col-sm-4" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/users.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+        <div class="card-body card_hover shadow-sm border-secondary" style=" border: none;">
+          <h5 class="card-title text-center">Total Users</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{user_count}}</p>
+        </div>
+      </div>
+      <div class="card col-sm-4 card_hover" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/event.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+        <div class="card-body shadow-sm border-secondary" style="border: none;">
+          <h5 class="card-title text-center">Total Events</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{event_count}}</p>
+        </div>
+      </div>
     </div>
     <!-- <div class="row justify-content-evenly mb-5 m-1 ">
       <div class="col-4 p-5 text-center card_hover">
@@ -43,10 +97,7 @@
       </div>
     </div> -->
     
-    <!-- istory -->
-    <!--- home sample -->
   </div>
-  <!--- main bar -->
 </div>
 {% endblock %}
 {% block body_js %}
