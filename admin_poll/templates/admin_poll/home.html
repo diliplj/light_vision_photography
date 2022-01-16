@@ -4,9 +4,10 @@
 {% block content %}
 <style>
   .card:hover{
-    color: #393a3d !important;
+    color: #3879c3 !important;
     transform:scale(0.9);
   }
+
   .hover-effect:hover {
     color: #393a3d !important;
   } 
@@ -18,7 +19,7 @@
 <!-- Start Header-->
 {% include './Includes/header.html' %}
 <div class="d-flex mt-5">
-  <div class="flex-grow-0 mt-1 bg-light side_shadow" style="min-width:250px;">
+  <div class="flex-grow-0 mt-1 side_shadow" style="min-width:230px;">
     
     {% include './Includes/sidebar.html' with active='home' %}
     {% comment %}
@@ -30,13 +31,13 @@
   <div class="p-5 flex-grow-1">
     <!-- home sample -->
     <div class="d-grid text-center my-8">
-      <p class="fs-7 text-center text-uppercase mb-1 text-warning">HI Admin !</p>
-      <p class="fs-7 text-center text-secondary"> Lights vision Photography.</p>
+      <p class="fs-7 text-center mb-1 text-warning">HI {{user}}</p>
+      <span class="fs-7 text-center text-dark">Lights vision Photography.</span>
     </div>
     
     <div class="row">
-      <div class="card col-sm-4 card_hover" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
-        <img src="{{page_kwargs}}image/new.svg" width="80" height="80" class="card-img-top" alt="Card image cap">
+      <div class="card col-sm-4" style="width: 18rem; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/new.svg" width="80" height="80" class="card-img-top  " alt="Card image cap">
         <div class="card-body shadow-sm border-secondary" style="border: none;">
           <h5 class="card-title text-center">Total Banner</h5>
           <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{banner_count}}</p>

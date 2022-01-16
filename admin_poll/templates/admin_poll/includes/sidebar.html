@@ -1,7 +1,14 @@
 <style>
- #sidebarMenu:hover{
-
+ #sidebarMenu {
+  padding-left: 1ch;
   color: #393a3d !important;
+}
+.nav-item:hover{
+  padding-left: .2ch;
+  
+}
+.nav-link:hover{
+color: black;
 }
 </style>
 <!--- side bar -->
@@ -9,23 +16,33 @@
   <div class="d-grid p-3">
     <button type="button" class="btn btn-block btn-lg" data-bs-toggle="modal" data-bs-target="#AddStory" style="background-color: #247CF0; font-size:large; font-weight: 500; color: white;"><i class="bi bi-plus-lg fs-7 me-2"></i>Lights Vision</button>
   </div>
-  <div class="p-3 px-1 my-0">
-    <p class="text-uppercase text-light">Home</p>
+  <div class="p-3 px-1">
+    <p class="text-uppercase text-light ">Home</p>
     <ul class="navbar-nav nav-pills">
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'banner_add' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'banner_add' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>Add Banner</a>
+        <a class="nav-link text-capitalize {% if active == 'banner_add' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'banner_add' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/new.svg" width="20px" class="me-4" alt="...">
+          Add Banner</a>
       </li>
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'post' %}active{% else %}text-light {% endif %}" aria-current="page" href="{% url 'post' %}"><i class="bi bi-cloud-check fs-7 fw-bold me-2 ms-2"></i>Add Post</a>
+        <a class="nav-link text-capitalize {% if active == 'post' %}active{% else %}text-light {% endif %}" aria-current="page" href="{% url 'post' %}"><i class="bi bi-cloud-check fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/post.svg" width="20px" class="me-4" alt="...">
+          Add Post</a>
       </li>
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'gallery' %}active{% else %}text-light {% endif %}" aria-current="page" href="{% url 'gallery' %}"><i class="bi bi-clock fs-7 fw-bold me-2 ms-2"></i>Add Gallery</a>
+        <a class="nav-link text-capitalize {% if active == 'gallery' %}active{% else %}text-light {% endif %}" aria-current="page" href="{% url 'gallery' %}"><i class="bi bi-clock fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/gallery.svg" width="20px" class="me-4" alt="...">
+          Add Gallery</a>
       </li>
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'package' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'package' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>Add Package</a>
+        <a class="nav-link text-capitalize {% if active == 'package' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'package' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/package.svg" width="20px" class="me-4" alt="...">
+          Add Package</a>
       </li>
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'events' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'events' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>Add Events</a>
+        <a class="nav-link text-capitalize {% if active == 'events' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'events' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/event.svg" width="20px" class="me-4" alt="...">
+          Add Events</a>
       </li>
     </ul>
   </div>
@@ -33,13 +50,19 @@
     <p class="bi bi-plus-lg fs-7 fw-bold me-2 text-light" style="font-weight: bold; font-size: large;">Account</p>
     <ul class="navbar-nav nav-pills">
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'add_user' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'add_user' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>Add new user</a>
+        <a class="nav-link text-capitalize {% if active == 'add_user' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'add_user' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/user.svg" width="20px" class="me-4" alt="...">
+          Add new user</a>
       </li>
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'password_reset' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'password_reset' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>Password Reset</a>
+        <a class="nav-link text-capitalize {% if active == 'password_reset' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'password_reset' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/password.svg" width="20px" class="me-4 mt-0" alt="...">
+          Password Reset</a>
       </li>
       <li class="nav-item medium">
-        <a class="nav-link text-capitalize {% if active == 'logout' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'logout' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>Logout</a>
+        <a class="nav-link text-capitalize {% if active == 'logout' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'logout' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/logout.svg" width="20px" class="me-4" alt="...">
+          Logout</a>
       </li>
     </ul>
 
