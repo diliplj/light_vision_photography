@@ -450,6 +450,69 @@ def edit_equipment(request, id):
 		print("eeee",e)
 	return render(request, template, context)
 
+
+@logged_in
+@all_admin
+def add_about_us(request):
+	try:
+		template = "add_about_us.html"
+		about_us = AboutUsForm()
+		if request.method =="POST":
+			about_us = AboutUsForm(request.POST,request.FILES)
+			if about_us.is_valid():
+				about_us.save()
+				return redirect('home')
+
+		context ={
+			"form" : about_us,
+		
+		}	
+
+	except Exception as e:
+		print("Error ----",e)
+
+	return render(request, template, context)
+
+
+@logged_in
+@all_admin
+def edit_about_us(request, id):
+	try:
+		template = "edit_about_us.html"
+		if id:
+			data_obj = get_object_or_404(AboutUs, id=id)
+			form = EditAboutUsForm(instance=data_obj)
+			if request.method == "POST":
+				form = EditAboutUsForm(request.POST,request.FILES,instance=data_obj)
+				if form.is_valid():
+					form.save()
+					return redirect('home')
+				else:
+					form = EditAboutUsForm()
+
+			context = {
+				"form":form,
+				"obj":data_obj,
+			
+			}    
+
+	except Exception as e:
+		print("eeee",e)
+	return render(request, template, context)
+
+#delete_about_us
+@logged_in
+@all_admin
+def delete_about_us(request, id):
+	try:
+		if id:
+			if request.method == "GET":
+				AboutUs.objects.filter(id=id).delete()
+				return redirect("home")				
+	except Exception as e:
+		print("eee",e)
+
+
 class PasswordResetConfirm(PasswordResetConfirmView):
     form_class = PasswordResetConfirmForm
 

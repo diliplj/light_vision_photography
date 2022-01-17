@@ -1,3 +1,4 @@
+from tkinter.tix import Balloon
 from django.db import models
 from django.template.defaultfilters import slugify
 from . import choices as ch
@@ -249,10 +250,10 @@ class AboutUs(models.Model):
 	image = models.ImageField(null=True, upload_to="about_us/")
 	about_you = models.TextField(null=True)
 	contact_name=models.CharField(null=True,max_length=200)
-	contact_no= models.IntegerField(null=True)
+	contact_no= models.CharField(null=True, max_length=10)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
-
+	
 	class Meta:
 		db_table = "about_us"
 
@@ -270,3 +271,16 @@ class ImageDuplicate(models.Model):
 	class Meta:
 		db_table = "ImageDuplicate"
 		verbose_name="ImageDuplicate"
+
+class Profile(models.Model):
+	email = models.EmailField(null=True, blank=True,max_length=255)
+	username = models.CharField(null=True, blank=True,max_length=255)
+	profile_pic = models.FileField(null=True, upload_to="profile_images/")
+	phone_no = models.IntegerField(null=True,default=0)
+
+	class Meta:
+		db_table = "Profile"
+		verbose_name="Profile"
+		
+	def __str__(self):
+		return "{0}".format(self.email)		

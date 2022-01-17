@@ -192,14 +192,17 @@ class PasswordResetConfirmForm(SetPasswordForm):
 	def clean_new_password2(self):
 		password1 = self.cleaned_data.get('new_password1')
 		password2 = self.cleaned_data.get('new_password2')
-		print("password1----",password1)
-		print("password2----",password2)
 		if password1 and password2:
 			if password1 != password2:
 				raise forms.ValidationError("Password miss matched")
 		return password2	
 		
-# class PriceListForm(forms.ModelForm):
-# 	class Meta:
-# 		model = PriceList
-# 		exclude = ['slug','updated_on','datamode','created_on']
+class AboutUsForm(forms.ModelForm):
+	class Meta:
+		model = AboutUs
+		exclude = ['updated_on','created_on']
+
+class EditAboutUsForm(forms.ModelForm):
+	class Meta:
+		model = AboutUs
+		exclude = ['updated_on','created_on']		

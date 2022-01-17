@@ -22,8 +22,8 @@
   <div class="flex-grow-0 mt-1 side_shadow" style="min-width:230px;">
     
     {% include './Includes/sidebar.html' with active='home' %}
-    {% comment %}
     {% include './Includes/mobile_sidebar.html' with active='home' %}
+    {% comment %}
     {% endcomment %}
     
   </div> 
@@ -31,10 +31,10 @@
   <div class="p-5 flex-grow-1">
     <!-- home sample -->
     <div class="d-grid text-center my-8 " style="font-size: 1.5em; ">
-      <span class="fs-7 text-center text-info">Lights vision Photography.</span>
+      <span class="fs-7 text-center" style="font-family:sans-serif;">Lights vision Photography</span>
     </div>
-    <p class="fs-7  mb-1 text-dark">Welcome  {{user}}</p>
-    <p class="fs-7  mb-1 text-primary">Everything is going good</p>
+    <span class="fs-7  mb-1 text-uppercase text-dark">Welcome </span><span class="text-primary">{{user}}</span>
+    <p class="fs-7  mb-1 text-secondary">Everything is going good</p>
     
     <div class="row">
       <!-- <div class="col-md-6 mb-4 stretch-card transparent">

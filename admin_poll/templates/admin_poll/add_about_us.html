@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% include './includes/header.html' %}
-{% block title %} Update Banner {% endblock %}
+{% block title %} About Us {% endblock %}
 {% block content %}
 <div class="container h-100 mt-5 d-flex justify-content-center">
     <div class="col-12 col-md-5 align-self-center text-start p-5 border">
-        <p class="fs-4 fw-bold text-uppercase">Update Banner</p>
-        <form method = "POST" enctype="multipart/form-data" accept="video/*">
+        <p class="fs-4 fw-bold text-uppercase">About Us</p>
+        <form method="POST" enctype="multipart/form-data" accept="video/*">
             {% csrf_token %}
                {{form.as_p}}
 
-            <button class="btn btn-primary btn-block border-0" type="submit">Update Banner</button>    
+            <button class="btn btn-primary btn-block border-0" type="submit">Add About us</button>    
         </form>
     </div>
 
