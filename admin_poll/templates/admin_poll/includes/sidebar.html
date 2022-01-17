@@ -21,6 +21,12 @@ color: black;
     <p class="text-uppercase text-dark px-2">Home</p>
     <ul class="navbar-nav nav-pills">
       <li class="nav-item medium">
+        <a class="nav-link text-capitalize {% if active == 'home' %}active{% else %}text-dark{% endif %}" aria-current="page" href="{% url 'home' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
+          <img src="{{page_kwargs}}image/dashboard.svg" width="20px" class="me-4" alt="...">
+          Dashboard</a>
+      </li>
+
+      <li class="nav-item medium">
         <a class="nav-link text-capitalize {% if active == 'banner_add' %}active{% else %}text-dark{% endif %}" aria-current="page" href="{% url 'banner_add' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
           <img src="{{page_kwargs}}image/new.svg" width="20px" class="me-4" alt="...">
           Add Banner</a>
