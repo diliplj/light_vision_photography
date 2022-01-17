@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title> Edit Banner  </title>
-</head>
-<body>
-<form method="POST" enctype="multipart/form-data">
-    Hello {{request.user.email}}
-	{% csrf_token %}
-    <div>
-    {{form.as_p}}<br>
+{% extends 'base.html' %}
+{% include './includes/header.html' %}
+{% block title %} Create Banner {% endblock %}
+{% block content %}
+<div class="container h-100 mt-5 d-flex justify-content-center">
+    <div class="col-12 col-md-5 align-self-center text-start p-5 border">
+        <p class="fs-4 fw-bold text-uppercase">Update Banner</p>
+        <form method = "POST" enctype="multipart/form-data" accept="video/*">
+            {% csrf_token %}
+               {{form.as_p}}
+
+            <button class="btn btn-primary btn-block border-0" type="submit">Update Banner</button>    
+        </form>
     </div>
-    <button type="submit"> Update </button>
-    
-</form>
-<a href="{% url 'banner_add' %}"> Banner Add </a>
-</body>
-</html>
+
+</div>
+{% endblock %}

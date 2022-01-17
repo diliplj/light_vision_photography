@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> Banner  </title>
-</head>
-<body>
-    
-    <form method = "POST" enctype="multipart/form-data" accept="video/*">
-        {% csrf_token %}
-        
-        {% for data in form %}
-            {{data.label}}
-            {{data}}<br>
-        {% endfor %}
-        <button class="btn btn-primary btn-block border-0" type="submit">Add Gallery</button>    
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% include './includes/header.html' %}
+{% block title %} Gallery {% endblock %}
+{% block content %}
+<div class="container h-100 mt-5 d-flex justify-content-center">
+    <div class="col-12 col-md-5 align-self-center text-start p-5 border">
+        <p class="fs-4 fw-bold text-uppercase">Create new Gallery</p>
+        <form method = "POST" enctype="multipart/form-data" accept="video/*">
+            {% csrf_token %}
+               {{form.as_p}}
+
+            <button class="btn btn-primary btn-block border-0" type="submit">Add Gallery</button>    
+        </form>
+    </div>
+
+</div>
+{% endblock %}
