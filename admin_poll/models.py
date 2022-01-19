@@ -125,9 +125,9 @@ class Events(models.Model):
 class Equipment(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	event = models.ForeignKey(Events, on_delete=models.CASCADE)
-	images = models.ImageField(null=True, upload_to='equipment_images/')
 	equipment_name = models.TextField(null=False)
 	equipment_model = models.TextField(null=False)
+	images = models.ImageField(null=True, upload_to='equipment_images/')
 	slug = models.SlugField(max_length=255,null=True)
 	album_detail = models.TextField(null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
@@ -246,8 +246,8 @@ class Banner(models.Model):
 class AboutUs(models.Model):
 	company_name = models.CharField(null=True,max_length=200)
 	company_detail = models.TextField(null=True)
-	image = models.ImageField(null=True, upload_to="about_us/")
 	about_you = models.TextField(null=True)
+	image = models.ImageField(null=True, upload_to="about_us/")
 	contact_name=models.CharField(null=True,max_length=200)
 	contact_no= models.CharField(null=True, max_length=10)
 	created_on = models.DateTimeField(auto_now_add=True)

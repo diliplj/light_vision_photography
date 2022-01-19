@@ -530,4 +530,3 @@ class PasswordResetConfirm(PasswordResetConfirmView):
 
     def __init__(self, *args, **kwargs):
         super(PasswordResetConfirm, self).__init__(*args, **kwargs)
-
