@@ -88,6 +88,7 @@ def banner_add(request):
 		else:
 			form = BannerForm()
 		context = {
+			"page_kwargs" : settings.STATIC_URL,
 			"form_data":form	
 		}    
 	except Exception as e:
@@ -141,6 +142,7 @@ def edit_banner(request, id):
 
 			context = {
 				"form":form,
+				
 				"obj":banner_data_obj
 			}    
 
@@ -182,6 +184,7 @@ def post(request):
 		
 		context = {
 			"form":form,
+			"page_kwargs" : settings.STATIC_URL,
 		
 			}
 
@@ -206,6 +209,7 @@ def edit_post(request, id):
 
 			context = {
 				"form":form,
+				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
 			}    
@@ -254,7 +258,8 @@ def gallery(request):
 				form = GalleryForm()
 		
 		context = {
-			"form":form
+			"form":form,
+			"page_kwargs" : settings.STATIC_URL,
 			}
 
 	except Exception as e:
@@ -279,6 +284,7 @@ def edit_gallery(request, id):
 
 			context = {
 				"form":form,
+				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
 			}    
@@ -316,7 +322,8 @@ def package(request):
 				else:
 					return HttpResponse("Function name is already exists")
 		context ={
-			"package" : package
+			"form" : package,
+			"page_kwargs" : settings.STATIC_URL,
 		
 		}	
 
@@ -344,6 +351,7 @@ def edit_package(request, id):
 
 			context = {
 				"form":form,
+				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
 			}    
@@ -366,7 +374,8 @@ def events(request):
 				return redirect('home')
 
 		context ={
-			"events" : events,
+			"form" : events,
+			"page_kwargs" : settings.STATIC_URL,
 		
 		}	
 
@@ -393,6 +402,7 @@ def edit_events(request, id):
 
 			context = {
 				"form":form,
+				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
 			}    
@@ -415,8 +425,8 @@ def equipment(request):
 				return redirect('home')
 
 		context ={
-			"equipment" : equipment,
-		
+			"form" : equipment,
+			"page_kwargs" : settings.STATIC_URL,
 		}	
 
 	except Exception as e:
@@ -442,6 +452,7 @@ def edit_equipment(request, id):
 
 			context = {
 				"form":form,
+				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
 			}    
@@ -465,7 +476,7 @@ def add_about_us(request):
 
 		context ={
 			"form" : about_us,
-		
+			"page_kwargs" : settings.STATIC_URL,
 		}	
 
 	except Exception as e:
@@ -492,6 +503,7 @@ def edit_about_us(request, id):
 
 			context = {
 				"form":form,
+				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
 			}    
