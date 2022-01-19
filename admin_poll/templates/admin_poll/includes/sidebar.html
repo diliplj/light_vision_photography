@@ -15,28 +15,28 @@
             
           </li>
           <li>
-            <a class="nav-link text-capitalize {% if active == 'banner_add' %}active{% else %}text-dark{% endif %}" aria-current="page" href="{% url 'banner_add' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'banner_add' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'banner_add' %}" data-bs-toggle="modal" data-bs-target="#AddStory"><i class="bi bi-plus-lg fs-7 fw-bold me-2 ms-2"></i>
                 <img src="{{page_kwargs}}image/new.svg" width="20px" class="me-4" alt="...">
                 Add Banner</a>
           </li>
           <li>
-            <a class="nav-link text-capitalize {% if active == 'post' %}active{% else %}text-dark {% endif %}" aria-current="page" href="{% url 'post' %}"><i class="bi bi-cloud-check fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'post' %}active{% else %}text-light {% endif %}" aria-current="page" href="{% url 'post' %}"><i class="bi bi-cloud-check fs-7 fw-bold me-2 ms-2"></i>
               <img src="{{page_kwargs}}image/post.svg" width="20px" class="me-4" alt="...">
               Add Post</a>
           </li>
          
           <li>
-            <a class="nav-link text-capitalize {% if active == 'gallery' %}active{% else %}text-dark {% endif %}" aria-current="page" href="{% url 'gallery' %}"><i class="bi bi-clock fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'gallery' %}active{% else %}text-light {% endif %}" aria-current="page" href="{% url 'gallery' %}"><i class="bi bi-clock fs-7 fw-bold me-2 ms-2"></i>
               <img src="{{page_kwargs}}image/gallery.svg" width="20px" class="me-4" alt="...">
               Add Gallery</a>
           </li>
           <li>
-            <a class="nav-link text-capitalize {% if active == 'package' %}active{% else %}text-dark{% endif %}" aria-current="page" href="{% url 'package' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'package' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'package' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
               <img src="{{page_kwargs}}image/package.svg" width="20px" class="me-4" alt="...">
               Add Package</a>
           </li>
           <li>
-            <a class="nav-link text-capitalize {% if active == 'events' %}active{% else %}text-dark{% endif %}" aria-current="page" href="{% url 'events' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'events' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'events' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
               <img src="{{page_kwargs}}image/event.svg" width="20px" class="me-4" alt="...">
               Add Events</a>
           </li>
@@ -44,17 +44,17 @@
             <p> Account</p>
               </li>
           <li>
-            <a class="nav-link text-capitalize {% if active == 'add_user' %}active {% else %}text-dark {% endif %}" aria-current="page" href="{% url 'add_user' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'add_user' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'add_user' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
                 <img src="{{page_kwargs}}image/user.svg" width="20px" class="me-4" alt="...">
                 Add New User</a>
           </li>
           <li>
-            <a class="nav-link text-capitalize {% if active == 'password_reset' %}active{% else %}text-dark{% endif %}" aria-current="page" href="{% url 'password_reset' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
+            <a class="nav-link text-capitalize {% if active == 'password_reset' %}active{% else %}text-light{% endif %}" aria-current="page" href="{% url 'password_reset' %}"><i class="bi bi-file-earmark fs-7 fw-bold me-2 ms-2"></i>
                 <img src="{{page_kwargs}}image/password.svg" width="20px" class="me-4 mt-0" alt="...">
                 Password Reset</a>
           </li>
         <li>
-        <a class="nav-link text-capitalize {% if active == 'logout' %}active {% else %}text-dark {% endif %}" aria-current="page" href="{% url 'logout' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
+        <a class="nav-link text-capitalize {% if active == 'logout' %}active {% else %}text-light {% endif %}" aria-current="page" href="{% url 'logout' %}"><i class="bi bi-house-door fs-7 fw-bold me-2 ms-2"></i>
             <img src="{{page_kwargs}}image/logout.svg" width="20px" class="me-4" alt="...">
             Logout</a>
         </li>
@@ -65,10 +65,11 @@
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light ">
             <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
+                <!-- <button type="button" id="sidebarCollapse" class="btn btn-info"> -->
+                  <i class="fas fa-align-left" id="sidebarCollapse">
+                  <img src="{{page_kwargs}}image/dashboard.svg" width="30" height="30" class="card-img-top mt-3 " alt="Card image cap">
+                </i>
+                  <!-- </button> -->
                  
                 <a href="#" class="d-block link-dark text-decoration-none">
                 {% if request.session.user_details.avatar %}
@@ -83,7 +84,7 @@
             </div>
       </nav>
       {% block sidebar %}
-      <div class="d-grid text-center " style="font-size: 1.5em; ">
+      <div class="text-center " style="font-size: 1.5em; ">
         <span class="fs-7 text-center" style="font-family:sans-serif;">Lights vision Photography</span>
       </div>
       <div>
@@ -94,7 +95,7 @@
     </div>
           
       <div class="row">
-        <div class="col-sm-6 mb-0">
+        <div class="col-lg-4 mb-0 px-0">
             <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
               <img src="{{page_kwargs}}image/bannerc.svg" width="80" height="80" class="card-img-top mt-3 " alt="Card image cap">
               <div class="card-body">
@@ -103,7 +104,7 @@
               </div>
             </div>
         </div>
-        <div class="col-sm-6 mb-0">
+        <div class="col-lg-4 mb-0">
             <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
                 <img src="{{page_kwargs}}image/packagec.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
                 <div class="card-body">
@@ -113,7 +114,7 @@
             </div>
         </div>
         
-        <div class="col-sm-6 mb-0">
+        <div class="col-lg-4 mb-0">
             <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
                 <img src="{{page_kwargs}}image/postc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
               <div class="card-body">
@@ -123,7 +124,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6 mb-0">
+        <div class="col-lg-4 mb-0">
             <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
                 <img src="{{page_kwargs}}image/usersc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
                 <div class="card-body">
@@ -133,7 +134,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6  mb-0 ">
+        <div class="col-lg-4  mb-0 ">
             <div class="card text-center" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
                 <img src="{{page_kwargs}}image/eventsc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
                 <div class="card-body">
@@ -142,6 +143,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-4  mb-0 ">
+          <div class="card text-center" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+              <img src="{{page_kwargs}}image/galleryc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title text-center">Total Gallery</h5>
+                <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{gallery_count}}</p>
+              </div>
+          </div>
+      </div>
 
         {% endblock %}
 
