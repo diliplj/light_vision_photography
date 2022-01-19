@@ -1,4 +1,3 @@
-from tkinter.tix import Balloon
 from django.db import models
 from django.template.defaultfilters import slugify
 from . import choices as ch
@@ -61,7 +60,7 @@ class Role(models.Model):
 class UserRole(models.Model):
 	user = models.ForeignKey(AddUser, on_delete=models.CASCADE)
 	role = models.ForeignKey(Role, on_delete=models.CASCADE)
-	slug = models.SlugField(max_length=255,null=True)
+	slug = models.SlugField(max_length=255,null=True, blank=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
@@ -170,9 +169,9 @@ class Post(models.Model):
 	user = models.ForeignKey(AddUser, on_delete=models.CASCADE)
 	category = models.CharField(max_length=200)
 	video_url = models.URLField(max_length=300, null=True)
-	image = models.ImageField(null=False, upload_to="admin_post_img/")
 	short_description = models.TextField(null=True)
 	detail_description = models.TextField(null=True)
+	image = models.ImageField(null=False, upload_to="admin_post_img/")
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
@@ -231,9 +230,9 @@ class Photos(models.Model):
 
 
 class Banner(models.Model):
-	banner_image = models.ImageField(null=False, upload_to="blog_images/")
 	banner_video = models.URLField(null=True, max_length=252, blank=True)
 	banner_category = models.CharField(max_length=200)
+	banner_image = models.ImageField(null=False, upload_to="blog_images/")
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
