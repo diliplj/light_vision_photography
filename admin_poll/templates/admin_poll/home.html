@@ -1,47 +1,73 @@
 
 {% extends 'base.html' %}
 {% block title %}Admin Panel {% endblock %}
+{% block sidebar %}{% include './includes/sidebar.html' with active="home" %}{% endblock %}
 {% block content %}
-<style>
-  .card:hover{
-    color: #3879c3 !important;
-    transform:scale(0.9);
-  }
-
-  .hover-effect:hover {
-    color: #393a3d !important;
-  } 
-  ::-webkit-scrollbar{
-    display: none;
-  }
-
-</style>
-<div class="flex-grow-0  side_shadow" style="min-width:230px;">
-  {% include './includes/sidebar.html' with active='home' %}
-</div> 
-{% block sidebar %}
-
-{% endblock  %}
-
-
-
-    <!-- <div class="row justify-content-evenly mb-5 m-1 ">
-      <div class="col-4 p-5 text-center card_hover">
-        <img class="py-3" src="{{page_kwargs}}image/new.svg"  alt="Card image cap">
-        <p class="fs-5 text-center fw-bold text-secondary mb-0">Create Stories</p>
-        <p class="fs-7 text-center text-secondary">Construct, Test, and Publish your iStory from scratch or upload an existing file</p>
+<div class="row">
+  <div class="col-lg-4 mb-0">
+      <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/bannerc.svg" width="80" height="80" class="card-img-top mt-3 " alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title text-center">Total Banner</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{banner_count}}</p>
+        </div>
       </div>
-      <div class="col-4 p-5 text-center card_hover">
-        <img class="py-3" src="{{page_kwargs.static_url}}Images/props.svg"  alt="Card image cap">
-        <p class="fs-5 text-center fw-bold text-secondary mb-0">Asset Library</p>
-        <p class="fs-7 text-center text-secondary">Add your own images, videos, audio and icons to use for your iStory creation</p>
+  </div>
+  <div class="col-lg-4 mb-0">
+      <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+          <img src="{{page_kwargs}}image/packagec.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title text-center">Total Package</h5>
+            <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{package_count}}</p>
+          </div>
       </div>
-      <div class="col-4 p-5 text-center card_hover">
-        <img class="py-3" src="{{page_kwargs.static_url}}Images/documents.svg"  alt="Card image cap">
-        <p class="fs-5 text-center fw-bold text-secondary mb-0">Manage your Projects</p>
-        <p class="fs-7 text-center text-secondary">Organize your iStories by project name and share with your team</p>
+  </div>
+  
+  <div class="col-lg-4 mb-0">
+      <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+          <img src="{{page_kwargs}}image/postc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title text-center">Total Post</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{post_count}}</p>
+        </div>
       </div>
-    </div> -->
+  </div>
+
+  <div class="col-lg-4 mb-0">
+      <div class="card" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+          <img src="{{page_kwargs}}image/usersc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title text-center">Total Users</h5>
+            <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{user_count}}</p>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-lg-4 mb-0">
+      <div class="card text-center" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+          <img src="{{page_kwargs}}image/eventsc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title text-center">Total Events</h5>
+            <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{event_count}}</p>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-lg-4  mb-0 ">
+    <div class="card text-center" style=" box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-left:3em; margin-right:3em; margin-top: 5%; border: rgb(88, 157, 200);">
+        <img src="{{page_kwargs}}image/galleryc.svg" width="80" height="80" class="card-img-top mt-3" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title text-center">Total Gallery</h5>
+          <p class="card-text text-center fw-bolder" style="font-size: x-large;">{{gallery_count}}</p>
+        </div>
+    </div>
+</div>
+
+  
+
+
+</div>
+
     
   </div>
 </div>

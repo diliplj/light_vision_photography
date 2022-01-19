@@ -1,20 +1,50 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>
-      {% block title %} {% endblock %}</title>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{% block title %} {% endblock %}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{page_kwargs}}css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{page_kwargs}}css/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{page_kwargs}}css/style.css">
+  {% block css %}{% endblock %}
 </head>
-  <body style="background-color: #fbfbfb;;"> 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    {% block content %}
-    {% endblock %}
+
+<body>
+
+  <div class="wrapper">
+    {% block sidebar %}{% endblock %}
+    <div id="content" class="px-0">
+      {% include 'top_bar.html' %}
+      <div class="text-center " style="font-size: 1.5em; ">
+        <span class="fs-7 text-center" style="font-family:sans-serif;">Lights vision Photography</span>
+      </div>
+      <div>
+        <div class="text-center">
+          <span class="fs-7 text-uppercase  text-dark">Welcome </span><span class="text-primary">{{user}}</span>
+          <p class="fs-7 mx-4 text-warning">Everything is going good</p>
+        </div>
+      </div>
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="{{page_kwargs}}js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+      });
+    });
+  </script>
+  {% block js %}{% endblock %}
 </body>
+
 </html>

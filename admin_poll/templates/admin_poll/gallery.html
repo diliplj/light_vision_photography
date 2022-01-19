@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
-{% include './includes/header.html' %}
+{% load ttags%}
 {% block title %} Gallery {% endblock %}
+{% block sidebar %}{% include './includes/sidebar.html' with active="gallery" %}{% endblock %}
 {% block content %}
-<div class="container h-100 mt-5 d-flex justify-content-center">
+<div class="container mt-5 d-flex justify-content-center">
     <div class="col-12 col-md-5 align-self-center text-start p-5 border">
         <p class="fs-4 fw-bold text-uppercase">Create new Gallery</p>
         <form method = "POST" enctype="multipart/form-data" accept="video/*">
             {% csrf_token %}
-               {{form.as_p}}
-
+            {% for field in form %}
+            {% if field.label == 'Images' %}
+            <div class="mb-2">
+                <label for="{{field.name}}" class="form-label">{{field.label_tag}}</label>
+                {{field|addcss:'form-control'}}
+            </div>
+            {% else %}
+            <div class="form-floating mb-2">
+                {{field|addcss:'form-control'}}
+                {{field.label_tag}}
+            </div>
+            {% endif %}
+            {% for error in field.errors %}
+            <div>
+                <span class="help small text-danger">{{error}}</span>
+            </div>
+            {% endfor %}
+            {% endfor %}
             <button class="btn btn-primary btn-block border-0" type="submit">Add Gallery</button>    
         </form>
     </div>
