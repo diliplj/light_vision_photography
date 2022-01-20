@@ -19,7 +19,7 @@
                             <img src="{% if request.session.user_details.avatar %}{{request.session.user_details.avatar}}{% else %}{{page_kwargs}}image/user.svg{% endif %}" alt="mdo" width="30" height="30" class="border rounded-circle p-1">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end small rounded-0 p-0 fs-7 mt-4" aria-labelledby="userMenu">
-                            <li class="border-bottom"><a class="dropdown-item small d-flex align-items-center" href="#"><i class="bi bi-gear me-2 fs-5"></i>Settings</a></li>
+                            <li class="border-bottom"><a class="dropdown-item small d-flex align-items-center" href="{% url 'edit_profile_settings' user.email %}"><i class="bi bi-gear me-2 fs-5"></i>Settings</a></li>
                             <li class=""><a class="dropdown-item small d-flex align-items-center" href="{% url 'logout' %}"><i class="bi bi-door-closed me-2 fs-5"></i>Sign Out</a></li>
                         </ul>
                     </div>

@@ -29,6 +29,7 @@ because User model will allow encrpyt password only
 Note : return redirect(request.META['HTTP_REFERER']) to redirect to previous url
 """
 logger = logging.getLogger('app')
+to_email_id= ""
 
 def add_user(request):
 	context = {}
@@ -36,7 +37,6 @@ def add_user(request):
 	page_kwargs['static_url'] = settings.STATIC_URL
 	context['page_kwargs'] = page_kwargs
 	try:
-		to_email_id = None
 		template = 'add_admin.html'
 		form = UserForm()
 		user_data = None
@@ -53,10 +53,18 @@ def add_user(request):
 					data.save()
 					user_data = AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").last()
 					role_data = Role.objects.filter(role=user_role_data, datamode="Active").last()
-					AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(password=make_password(password))
-					UserRole.objects.create(user=user_data,role=role_data,datamode="Active")
+					AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(
+						password=make_password(password), created_by=to_email_id,updated_by=to_email_id)
+					UserRole.objects.create(user=user_data,role=role_data,created_by=to_email_id,
+					updated_by=to_email_id,datamode="Active")
+					Profile.objects.create(
+						email=to_email_id,username=name, created_by=to_email_id,updated_by=to_email_id
+					)
 					return redirect('login')
-		context['form'] = form
+		context={
+			'form' : form,
+			"page_kwargs" : settings.STATIC_URL,
+		}
 	except Exception as e:
 		print("error----",e)
 	return render(request,template,context)
@@ -76,7 +84,9 @@ def banner_add(request):
 				for image in image_list:
 					Banner.objects.create(
 						banner_image = image,banner_video = request.POST.get('banner_video'),
-						banner_category =  request.POST.get('banner_category')
+						banner_category =  request.POST.get('banner_category'),
+						created_by=to_email_id,updated_by=to_email_id
+
 					)
 					img_data =Banner.objects.latest('updated_on')
 					data_from = "banner"+str(img_data.id)
@@ -524,6 +534,32 @@ def delete_about_us(request, id):
 	except Exception as e:
 		print("eee",e)
 
+
+@logged_in
+@all_admin
+def edit_profile_settings(request, email):
+	try:
+		template = "edit_profile_settings.html"
+		profile_obj= Profile.objects.get(email=email)
+		form = EditProfileForm(instance=profile_obj)
+		if id and request.method == "POST":
+			form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
+			if form.is_valid():
+				form.save()
+				return redirect('home') # it will return you to previous url
+			else:
+				form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
+
+		context = {
+			"form":form,
+			"page_kwargs" : settings.STATIC_URL,
+			"obj":profile_obj,
+		
+			} 
+		
+	except Exception as e:
+		print("eee",e)
+	return render(request, template,context)
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     form_class = PasswordResetConfirmForm

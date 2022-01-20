@@ -17,6 +17,9 @@ class AddUser(AbstractUser):
 	# slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -41,6 +44,9 @@ class Role(models.Model):
 	slug = models.SlugField(max_length=255,null=True, blank=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -63,6 +69,9 @@ class UserRole(models.Model):
 	slug = models.SlugField(max_length=255,null=True, blank=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -83,6 +92,9 @@ class Package(models.Model):
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -105,6 +117,9 @@ class Events(models.Model):
 	slug =  models.SlugField(max_length=255)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	class Meta:
@@ -132,6 +147,9 @@ class Equipment(models.Model):
 	album_detail = models.TextField(null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 
@@ -157,6 +175,9 @@ class PriceList(models.Model):
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -175,6 +196,9 @@ class Post(models.Model):
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -196,6 +220,9 @@ class Gallery(models.Model):
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	def save(self, *args, **kwargs):
@@ -215,6 +242,9 @@ class Photos(models.Model):
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 
@@ -235,6 +265,9 @@ class Banner(models.Model):
 	banner_image = models.ImageField(null=False, upload_to="blog_images/")
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	class Meta:
@@ -252,6 +285,8 @@ class AboutUs(models.Model):
 	contact_no= models.CharField(null=True, max_length=10)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
 	
 	class Meta:
 		db_table = "about_us"
@@ -276,6 +311,16 @@ class Profile(models.Model):
 	username = models.CharField(null=True, blank=True,max_length=255)
 	profile_pic = models.FileField(null=True, upload_to="profile_images/")
 	phone_no = models.IntegerField(null=True,default=0)
+	address = models.TextField(null=True)
+	city= models.CharField(null=True, blank=True,max_length=255)
+	state = models.CharField(null=True, blank=True,max_length=255)
+	country = models.CharField(null=True, blank=True,max_length=255)
+	pincode= models.IntegerField(null=True,default=0)
+	created_on = models.DateTimeField(auto_now_add=True)
+	created_by = models.CharField(null=True, max_length=255)
+	updated_by = models.CharField(null=True, max_length=255)
+	updated_on = models.DateTimeField(auto_now=True)
+
 
 	class Meta:
 		db_table = "Profile"

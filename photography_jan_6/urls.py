@@ -7,29 +7,29 @@ import django.views.static as django_static_view
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-	path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),name='login'),
+	path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html',extra_context={'page_kwargs':settings.STATIC_URL}),name='login'),
 
-	path('accounts/logout/', auth_views.LogoutView.as_view(template_name='logout.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),name='logout'),
+	path('accounts/logout/', auth_views.LogoutView.as_view(template_name='logout.html',extra_context={'page_kwargs':settings.STATIC_URL}),name='logout'),
 
-	path('accounts/password/reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}), name='password_reset'),
+	path('accounts/password/reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html',extra_context={'page_kwargs':settings.STATIC_URL}), name='password_reset'),
 	# path('accounts/password/reset/', auth_views.PasswordResetView.as_view(subject_template_name="emails/reset_password_subject.txt", \
     	# html_email_template_name="emails/reset_password.html", template_name='story_password_reset_form.html', extra_context={'page_kwargs': seo.get_page_tags("password_reset")}), \
     	# name='password_reset'),
 
 	
-	path('accounts/password/reset/done/',auth_views.PasswordResetDoneView.as_view(extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}), 
+	path('accounts/password/reset/done/',auth_views.PasswordResetDoneView.as_view(extra_context={'page_kwargs':settings.STATIC_URL}), 
 	name='password_reset_done'),
 	
 	
-	# path('accounts/password/reset/confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),
+	# path('accounts/password/reset/confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(extra_context={'page_kwargs':settings.STATIC_URL}),
 	# 	  name='password_reset_confirm'),
 	
-	path('accounts/password/reset/complete/',auth_views.PasswordResetCompleteView.as_view(extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),
+	path('accounts/password/reset/complete/',auth_views.PasswordResetCompleteView.as_view(extra_context={'page_kwargs':settings.STATIC_URL}),
 	name='password_reset_complete'),
 	
-	path('accounts/change-password/',auth_views.PasswordChangeView.as_view(template_name='registration/change_password.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),name='password_change'),
+	path('accounts/change-password/',auth_views.PasswordChangeView.as_view(template_name='registration/change_password.html',extra_context={'page_kwargs':settings.STATIC_URL}),name='password_change'),
 	
-	path('accounts/change-password/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/change_password_done.html',extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),
+	path('accounts/change-password/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/change_password_done.html',extra_context={'page_kwargs':settings.STATIC_URL}),
 		name='password_change_done'),
 
 	path('admin/', admin.site.urls),

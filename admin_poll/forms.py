@@ -206,3 +206,14 @@ class EditAboutUsForm(forms.ModelForm):
 	class Meta:
 		model = AboutUs
 		exclude = ['updated_on','created_on']		
+
+#profile
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		exclude = ['updated_on','created_on','created_by','updated_by']
+
+class EditProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		exclude = ['updated_on','created_on','created_by','updated_by']
