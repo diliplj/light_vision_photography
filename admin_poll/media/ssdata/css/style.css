@@ -5,7 +5,7 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #fbfbfb;
 }
 
 p {
@@ -94,23 +94,23 @@ a:focus {
     background: #fff;
 }
 
-#sidebar ul li.active>a,
+/* #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
     background: #6d7fcc;
-}
+} */
 
 a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+/* .dropdown-toggle::after {
     display: block;
     position: absolute;
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
-}
+} */
 
 ul ul a {
     font-size: 0.9em !important;
@@ -147,7 +147,7 @@ a.article:hover {
 
 #content {
     width: 100%;
-    padding: 20px;
+    /* padding: 20px; */
     min-height: 100vh;
     transition: all 0.3s;
 }
@@ -167,3 +167,15 @@ a.article:hover {
         display: none;
     }
 }
+.card:hover {
+    color: #4d77a7 !important;
+    transform: scale(0.9);
+  }
+
+  .hover-effect:hover {
+    color: #393a3d !important;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
