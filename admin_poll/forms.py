@@ -9,6 +9,7 @@ from django.forms import Widget
 import re
 from wand.image import Image
 from django.contrib.auth.forms import *
+from phonenumber_field.formfields import PhoneNumberField
 
 
 def password_validator(password):
@@ -213,7 +214,9 @@ class ProfileForm(forms.ModelForm):
 		model = Profile
 		exclude = ['updated_on','created_on','created_by','updated_by']
 
+
 class EditProfileForm(forms.ModelForm):
+	phone_no = PhoneNumberField()
 	class Meta:
 		model = Profile
 		exclude = ['updated_on','created_on','created_by','updated_by']

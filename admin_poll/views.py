@@ -69,6 +69,31 @@ def add_user(request):
 		print("error----",e)
 	return render(request,template,context)
 
+@logged_in
+@all_admin
+def home(request):
+	try:
+		template = "admin_poll/home.html"
+		data =  Banner.objects.filter(datamode="Active").order_by('-id')[:3]
+		banner_count = Banner.objects.filter(datamode="Active").count()
+		user_count = AddUser.objects.filter(datamode="Active")
+		package_count = Package.objects.filter(datamode="Active").count()
+		event_count = Events.objects.filter(datamode="Active").count()
+		post_data = Post.objects.filter(datamode="Active")
+		gallery_data = Gallery.objects.filter(datamode="Active")
+		context = {
+			"form":data,
+			"post_data":post_data,
+			"gallery_data":gallery_data,
+			"photos":Photos.objects.all(),
+			"page_kwargs" : settings.STATIC_URL,
+			"banner_count":banner_count,"gallery_count":gallery_data.count(),"post_count":post_data.count(),
+			"user_count":user_count.count(),"package_count":package_count,"event_count":event_count,
+		} 
+	except Exception as e:
+		print("eeee",e)
+	return render(request, template, context)    
+
 
 @logged_in
 @all_admin
@@ -106,33 +131,6 @@ def banner_add(request):
 	
 	return render(request, template, context)
 
-@logged_in
-@all_admin
-def home(request):
-	try:
-		template = "admin_poll/home.html"
-		if request.method =="GET":
-			data =  Banner.objects.filter(datamode="Active").order_by('-id')[:3]
-			banner_count = Banner.objects.filter(datamode="Active").count()
-			gallery_count = Gallery.objects.filter(datamode="Active").count()
-			post_count = Post.objects.filter(datamode="Active").count()
-			user_count = AddUser.objects.filter(datamode="Active").count()
-			package_count = Package.objects.filter(datamode="Active").count()
-			event_count = Events.objects.filter(datamode="Active").count()
-			post_data = Post.objects.filter(datamode="Active")
-			gallery_data = Gallery.objects.filter(datamode="Active")
-			context = {
-				"form":data,
-				"post_data":post_data,
-				"gallery_data":gallery_data,
-				"photos":Photos.objects.all(),
-				"page_kwargs" : settings.STATIC_URL,
-				"banner_count":banner_count,"gallery_count":gallery_count,"post_count":post_count,
-				"user_count":user_count,"package_count":package_count,"event_count":event_count,
-			} 
-	except Exception as e:
-		print("eeee",e)
-	return render(request, template, context)    
 
 @logged_in
 @all_admin
@@ -188,8 +186,6 @@ def post(request):
 				data.save()
 				return redirect('home')
 			else:
-				if Post.object.filter(user__email=account_user.email, datamode="Active").exists():
-					Post.object.filter(user__email=account_user.email, datamode="Active").update(datamode="Inactive")
 				form = PostForm()
 		
 		context = {
@@ -251,6 +247,7 @@ def gallery(request):
 			form = GalleryForm(request.POST, request.FILES)
 			images= request.FILES.getlist('images')
 			category = request.POST['category']
+			
 			if form.is_valid():
 				user = form.save(commit=False)
 				user.user = account_user
@@ -261,6 +258,7 @@ def gallery(request):
 						category= category,
 						images= image	
 					)
+
 				return redirect('home')
 			else:
 				if Gallery.object.filter(user__email=account_user.email, datamode="Active").exists():
@@ -522,15 +520,13 @@ def edit_about_us(request, id):
 		print("eeee",e)
 	return render(request, template, context)
 
-#delete_about_us
 @logged_in
 @all_admin
 def delete_about_us(request, id):
 	try:
-		if id:
-			if request.method == "GET":
-				AboutUs.objects.filter(id=id).delete()
-				return redirect("home")				
+		if id and request.method == "GET":
+			AboutUs.objects.filter(id=id).delete()
+			return redirect("home")				
 	except Exception as e:
 		print("eee",e)
 
@@ -546,7 +542,7 @@ def edit_profile_settings(request, email):
 			form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
 			if form.is_valid():
 				form.save()
-				return redirect('home') # it will return you to previous url
+				return redirect('home')
 			else:
 				form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
 
@@ -560,6 +556,7 @@ def edit_profile_settings(request, email):
 	except Exception as e:
 		print("eee",e)
 	return render(request, template,context)
+
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     form_class = PasswordResetConfirmForm

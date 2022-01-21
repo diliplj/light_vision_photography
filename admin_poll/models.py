@@ -10,7 +10,7 @@ from django.contrib.auth.models import User, AbstractUser
 # Create your models here.
 
 class AddUser(AbstractUser):
-	email  = models.EmailField(max_length=255, null=False)
+	email  = models.EmailField(max_length=255,unique=True, null=False)
 	# username   = models.CharField(max_length=255, unique=True, null=True)
 	# password = models.CharField(max_length=255, null=False)
 	# is_active   = models.BooleanField(default=True)  
@@ -32,8 +32,8 @@ class AddUser(AbstractUser):
 		db_table = "AddUser"
 		verbose_name="AddUser"
 	
-	USERNAME_FIELD = 'username'
-	REQUIRED_FIELDS = ['email']
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = ['username']
 
 	def __str__(self):
 
@@ -310,7 +310,7 @@ class Profile(models.Model):
 	email = models.EmailField(null=True, blank=True,max_length=255)
 	username = models.CharField(null=True, blank=True,max_length=255)
 	profile_pic = models.FileField(null=True, upload_to="profile_images/")
-	phone_no = models.IntegerField(null=True,default=0)
+	phone_no = models.CharField(null=True,max_length=10)
 	address = models.TextField(null=True)
 	city= models.CharField(null=True, blank=True,max_length=255)
 	state = models.CharField(null=True, blank=True,max_length=255)
