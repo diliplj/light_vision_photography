@@ -1,0 +1,93 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="leftside-menu">
+
+    <!-- LOGO -->
+    <a href="index.html" class="logo text-center logo-light">
+        <span class="logo-lg">
+            <img src="{{page_kwargs}}image/logo.png" alt="" height="16">
+        </span>
+        <span class="logo-sm">
+            <img src="{{page_kwargs}}image/logo_sm.png" alt="" height="16">
+        </span>
+    </a>
+    <!-- LOGO -->
+    <a href="index.html" class="logo text-center logo-dark">
+        <span class="logo-lg">
+            <img src="{{page_kwargs}}image/logo-dark.png" alt="" height="16">
+        </span>
+        <span class="logo-sm">
+            <img src="{{page_kwargs}}image/logo_sm_dark.png" alt="" height="16">
+        </span>
+    </a>
+
+    <div class="h-100" id="leftside-menu-container" data-simplebar>
+        <!--- Sidemenu -->
+        <ul class="side-nav">
+            <li class="side-nav-item">
+                <a href="{% url 'home' %}" class="side-nav-link">
+                    <i class="uil-calender"></i>
+                    <span> Dashboard </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{% url 'banner_add' %}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Banner </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{% url 'post' %}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Post </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{% url 'gallery' %}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Gallery </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{% url 'package' %}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Package </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{% url 'events' %}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Events </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
+                    aria-controls="sidebarDashboards" class="side-nav-link">
+                    <i class="uil-home-alt"></i>
+                    <span class="badge bg-success float-end">4</span>
+                    <span> Account </span>
+                </a>
+                <div class="collapse" id="sidebarDashboards">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{% url 'add_user' %}">Add User</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'password_reset' %}">Password Rest</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{% url 'logout' %}" class="side-nav-link">
+                    <i class="uil-comments-alt"></i>
+                    <span> Logout </span>
+                </a>
+            </li>
+        </ul>
+        <!-- End Sidebar -->
+        <div class="clearfix"></div>
+    </div>
+    <!-- Sidebar -left -->
+</div>
+<!-- Left Sidebar End -->
