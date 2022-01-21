@@ -1,37 +1,23 @@
-{% extends 'base.html' %}
-{% load ttags%}
-{% block title %} Equipment {% endblock %}
-{% block sidebar %}{% include './includes/sidebar.html' with active="equipment" %}{% endblock %}
-{% block content %}
-<div class="container mt-5 d-flex justify-content-center">
-    <div class="col-12 col-md-5 align-self-center text-start p-5 border">
-        <p class="fs-4 fw-bold text-uppercase">Create Equipment</p>
-        <form method="POST" enctype="multipart/form-data" accept="video/*">
-            {% csrf_token %}
-            {% for field in form %}
-           
-            <div class="form-floating mb-2">
-                {{field|addcss:'form-control'}}
-                {{field.label_tag}}
-            </div>
-            {% for error in field.errors %}
-            <div>
-                <span class="help small text-danger">{{error}}</span>
-            </div>
-            {% endfor %}
-            {% endfor %}
-            <div class="text-end">
-                <button class="btn btn-outline-primary">Cancel</button>
-                <button class="btn btn-primary btn-block border-0" type="submit">Add Equipment</button>
-            </div>
-        </form>
-    </div>
-
-</div>
-{% endblock %}
-{% block js %}
-<script>
-    document.getElementById('id_amount').setAttribute("min",0);
-    document.getElementById('id_number_of_days').setAttribute("min",0);
-</script>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> Add Equipment </title>
+	
+	<!-- <link rel="stylesheet" media="all" href="{{page_url}}css/normal.css" type="text/css" /> -->
+</head>
+<body>
+	<form method="POST" class="card p-5" enctype="multipart/form-data">
+		{% csrf_token %}	
+        <h2> equipment </h2>
+        {% for data in equipment %}
+			<div>{{data.label}}</div>
+			<div>{{data}}</div>
+		{% endfor %}
+        <div class="my-4">
+			<button class="btn btn-primary btn-block border-0" type="submit">Add Equipment</button>
+		</div>
+		
+	</form>
+</body>
+</html>
