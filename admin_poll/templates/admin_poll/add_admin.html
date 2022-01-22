@@ -6,7 +6,7 @@
     <div class="col-12 col-md-5 align-self-center text-start p-5 shadow-md border">
         <p class=" fs-4 fw-bold text-uppercase">Signup</span></p>
         <p>Create a new account</p>
-        <form method="post" action="" novalidate id="signup_form">
+        <form method="post" novalidate id="signup_form">
             {% csrf_token %}
             {% for field in form %}
                 {% if field.name == 'phone_number' %}
@@ -46,13 +46,13 @@
 {% endblock %}
 {% block scripts %}
 <script>
-    document.getElementById('id_mobile').setAttribute("maxlength", "10");
-    document.getElementById('id_mobile').addEventListener("keypress", function (evt) {
-        validate(evt)
-    });
-    document.getElementById('id_mobile').addEventListener("change", function (evt) {
-        validate(evt)
-    });
+    // document.getElementById('id_mobile').setAttribute("maxlength", "10");
+    // document.getElementById('id_mobile').addEventListener("keypress", function (evt) {
+    //     validate(evt)
+    // });
+    // document.getElementById('id_mobile').addEventListener("change", function (evt) {
+    //     validate(evt)
+    // });
     
 </script>
 {% endblock %}

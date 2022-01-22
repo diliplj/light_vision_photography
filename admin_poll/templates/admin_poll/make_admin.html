@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load ttags%}
-{% block title %} Create Banner {% endblock %}
-{% block sidebar %}{% include './includes/sidebar.html' with active="banner_add" %}{% endblock %}
+{% block title %} Make Admin {% endblock %}
+{% block sidebar %}{% include './includes/sidebar.html' with active="package" %}{% endblock %}
 {% block content %}
 <div class="container mt-5 d-flex justify-content-center">
     <div class="col-12 col-md-5 align-self-center text-start p-5 border">
-        <p class="fs-4 fw-bold text-uppercase">Profile</p>
-        <form method="POST" enctype="multipart/form-data" accept="video/*">
+        <p class="fs-4 fw-bold text-uppercase">Make Admin</p>
+        <form method = "POST" enctype="multipart/form-data" accept="video/*">
             {% csrf_token %}
-            {% for field in form_data %}
+            {% for field in form %}
             {% if field.label == 'Images' %}
             <div class="mb-2">
                 <label for="{{field.name}}" class="form-label">{{field.label_tag}}</label>
@@ -26,7 +26,11 @@
             </div>
             {% endfor %}
             {% endfor %}
-            <button class="btn btn-primary btn-block border-0" type="submit">Add Banner</button>
+            <div class="text-end">
+                <button class="btn btn-outline-primary">Cancel</button>
+                <button class="btn btn-primary btn-block border-0" type="submit">Make Admin</button>    
+            </div>
+
         </form>
     </div>
 

@@ -9,28 +9,42 @@ import logging
 from wand.image import Image
 
 
+def assign_role(to_email_id,name,password,user_data,role_data):
+	print("**********")
+	AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(
+		password=make_password(password), created_by=to_email_id,updated_by=to_email_id)
+	UserRole.objects.create(user=user_data,role=role_data,created_by=to_email_id,
+		updated_by=to_email_id,datamode="Active")
+
+	Profile.objects.create(
+		email=to_email_id,username=name, created_by=to_email_id,updated_by=to_email_id
+	)
+	msg = True
+	return msg
+
+
 def create_signature(img_data=None,category=None,user_name=None, data_from=None):
-    if data_from and category and img_data and user_name:
-        banner_img_data = Banner.objects.filter(id=img_data, banner_category=category)
-        for img in banner_img_data:
-            img_sign = Image(filename=str(settings.MEDIA_ROOT)+"/"+str(img.banner_image))
-            sign=img_sign.signature
-            if not ImageDuplicate.objects.filter(image_signature=sign).exists(): 
-                ImageDuplicate.objects.create(image_name=img.banner_image.name,
-                    image_url=str(img.banner_image.url),
-                    data_from = data_from, data_from_id= img_data,
-                    image_signature=sign,created_by=user_name,
-                    updated_by=user_name)
-            else:
-                result= False
-                msg= "Image already exists"
-                Banner.objects.filter(id=img.id,banner_category=category).delete()
-                return result , msg
-        
-        result= False
-        msg= "category or user not found"
-        return result , msg
-    else:
-        result= False
-        msg= "Category not found"
-        return result , msg
+	if data_from and category and img_data and user_name:
+		banner_img_data = Banner.objects.filter(id=img_data, banner_category=category)
+		for img in banner_img_data:
+			img_sign = Image(filename=str(settings.MEDIA_ROOT)+"/"+str(img.banner_image))
+			sign=img_sign.signature
+			if not ImageDuplicate.objects.filter(image_signature=sign).exists(): 
+				ImageDuplicate.objects.create(image_name=img.banner_image.name,
+					image_url=str(img.banner_image.url),
+					data_from = data_from, data_from_id= img_data,
+					image_signature=sign,created_by=user_name,
+					updated_by=user_name)
+			else:
+				result= False
+				msg= "Image already exists"
+				Banner.objects.filter(id=img.id,banner_category=category).delete()
+				return result , msg
+		
+		result= False
+		msg= "category or user not found"
+		return result , msg
+	else:
+		result= False
+		msg= "Category not found"
+		return result , msg

@@ -33,34 +33,25 @@ to_email_id= ""
 
 def add_user(request):
 	context = {}
-	page_kwargs ={}
-	page_kwargs['static_url'] = settings.STATIC_URL
-	context['page_kwargs'] = page_kwargs
 	try:
-		template = 'add_admin.html'
+		template = 'admin_poll/add_admin.html'
 		form = UserForm()
-		user_data = None
 		if request.method == "POST":
 			form = UserForm(request.POST)
 			if form.is_valid():
 				to_email_id= form.cleaned_data.get('email')
 				name = form.cleaned_data.get('username')
 				password = form.cleaned_data.get('password')
-				user_role_data = form.cleaned_data.get('role')
 				if not AddUser.objects.filter(email=to_email_id, username=name).exists():
 					data = form.save(commit=False)
 					data.is_active = True
 					data.save()
 					user_data = AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").last()
-					role_data = Role.objects.filter(role=user_role_data, datamode="Active").last()
-					AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(
-						password=make_password(password), created_by=to_email_id,updated_by=to_email_id)
-					UserRole.objects.create(user=user_data,role=role_data,created_by=to_email_id,
-					updated_by=to_email_id,datamode="Active")
-					Profile.objects.create(
-						email=to_email_id,username=name, created_by=to_email_id,updated_by=to_email_id
-					)
-					return redirect('login')
+					role_data = Role.objects.filter(role="User", datamode="Active").last()
+					msg = api.assign_role(to_email_id,name,password,user_data,role_data)
+					if msg:
+						return redirect('login')
+		
 		context={
 			'form' : form,
 			"page_kwargs" : settings.STATIC_URL,
@@ -68,6 +59,33 @@ def add_user(request):
 	except Exception as e:
 		print("error----",e)
 	return render(request,template,context)
+
+#AddadminForm
+@logged_in
+@all_admin
+def make_admin(request):
+	try:
+		template = "admin_poll/make_admin.html"
+		form = MakeAdminForm()
+		if request.method =="POST":
+			form = MakeAdminForm(request.POST)
+			user=AddUser.objects.get(email=request.POST.get('user'), datamode="Active")
+			role_data = Role.objects.get(id=request.POST.get('role'),datamode="Active")
+			designation = request.POST.get('designation')
+			UserRole.objects.create(
+				user=user, role=role_data, designation=designation,
+				created_by=request.user.email,updated_by=request.user.email,
+				datamode="Active"
+			)
+
+			return redirect('home')
+		context = {
+			"form" : form,
+			"page_kwargs" : settings.STATIC_URL,
+		} 
+	except Exception as e:
+		print("eeee",e)
+	return render(request, template, context)
 
 @logged_in
 @all_admin
@@ -88,7 +106,7 @@ def home(request):
 			"photos":Photos.objects.all(),
 			"page_kwargs" : settings.STATIC_URL,
 			"banner_count":banner_count,"gallery_count":gallery_data.count(),"post_count":post_data.count(),
-			"user_count":user_count.count(),"package_count":package_count,"event_count":event_count,
+			"user_count":user_count,"package_count":package_count,"event_count":event_count,
 		} 
 	except Exception as e:
 		print("eeee",e)
@@ -542,13 +560,21 @@ def edit_profile_settings(request, email):
 			form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
 			if form.is_valid():
 				form.save()
+				data= Profile.objects.get(email=request.POST.get('email'))
+				session_data={
+					'image':str(data.profile_pic),
+					'email': request.POST.get('email'),
+					'username' : request.POST.get('username')
+				}
+				request.session['profile']=session_data
 				return redirect('home')
 			else:
 				form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
-
+		print("settings.MEDIA_URL---",settings.MEDIA_ROOT)
 		context = {
 			"form":form,
 			"page_kwargs" : settings.STATIC_URL,
+			"media_kwargs" :settings.MEDIA_ROOT,
 			"obj":profile_obj,
 		
 			} 

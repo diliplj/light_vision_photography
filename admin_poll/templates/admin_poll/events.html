@@ -7,6 +7,7 @@
     <div class="col-12 col-md-5 align-self-center text-start p-5 border">
         <p class="fs-4 fw-bold text-uppercase">Create new Event</p>
         <form method = "POST" enctype="multipart/form-data" accept="video/*">
+            {% csrf_token %}
             {% for field in form %}
             {% if field.label == 'Images' %}
             <div class="mb-2">

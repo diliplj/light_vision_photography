@@ -1,3 +1,4 @@
+from importlib.metadata import requires
 from django.db import models
 from django.template.defaultfilters import slugify
 from . import choices as ch
@@ -66,6 +67,7 @@ class Role(models.Model):
 class UserRole(models.Model):
 	user = models.ForeignKey(AddUser, on_delete=models.CASCADE)
 	role = models.ForeignKey(Role, on_delete=models.CASCADE)
+	designation = models.CharField(null=True, max_length=255, default="User")
 	slug = models.SlugField(max_length=255,null=True, blank=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
@@ -140,9 +142,9 @@ class Events(models.Model):
 class Equipment(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	event = models.ForeignKey(Events, on_delete=models.CASCADE)
+	images = models.ImageField(null=True, upload_to='equipment_images/')
 	equipment_name = models.TextField(null=False)
 	equipment_model = models.TextField(null=False)
-	images = models.ImageField(null=True, upload_to='equipment_images/')
 	slug = models.SlugField(max_length=255,null=True)
 	album_detail = models.TextField(null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
@@ -267,7 +269,6 @@ class Banner(models.Model):
 	updated_on = models.DateTimeField(auto_now=True)
 	created_by = models.CharField(null=True, max_length=255)
 	updated_by = models.CharField(null=True, max_length=255)
-
 	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
 
 	class Meta:
@@ -279,15 +280,16 @@ class Banner(models.Model):
 class AboutUs(models.Model):
 	company_name = models.CharField(null=True,max_length=200)
 	company_detail = models.TextField(null=True)
-	about_you = models.TextField(null=True)
 	image = models.ImageField(null=True, upload_to="about_us/")
+	about_you = models.TextField(null=True)
 	contact_name=models.CharField(null=True,max_length=200)
 	contact_no= models.CharField(null=True, max_length=10)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
 	created_by = models.CharField(null=True, max_length=255)
 	updated_by = models.CharField(null=True, max_length=255)
-	
+
+
 	class Meta:
 		db_table = "about_us"
 
@@ -310,16 +312,14 @@ class Profile(models.Model):
 	email = models.EmailField(null=True, blank=True,max_length=255)
 	username = models.CharField(null=True, blank=True,max_length=255)
 	profile_pic = models.FileField(null=True, upload_to="profile_images/")
-	phone_no = models.CharField(null=True,max_length=10)
-	address = models.TextField(null=True)
-	city= models.CharField(null=True, blank=True,max_length=255)
-	state = models.CharField(null=True, blank=True,max_length=255)
-	country = models.CharField(null=True, blank=True,max_length=255)
-	pincode= models.IntegerField(null=True,default=0)
-	created_on = models.DateTimeField(auto_now_add=True)
+	phone_no = models.IntegerField(null=True,default=0)
+	address=models.TextField(null=True)
+	city = models.CharField(null=True, blank=True,max_length=255)
+	state=models.CharField(null=True, blank=True,max_length=255)
+	country=models.CharField(null=True, blank=True,max_length=255)
+	pincode=models.CharField(null=True, blank=True,max_length=255)
 	created_by = models.CharField(null=True, max_length=255)
 	updated_by = models.CharField(null=True, max_length=255)
-	updated_on = models.DateTimeField(auto_now=True)
 
 
 	class Meta:

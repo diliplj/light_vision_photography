@@ -9,7 +9,7 @@
         <form method="POST" enctype="multipart/form-data" accept="video/*">
             {% csrf_token %}
             {% for field in form %}
-            {% if field.label == 'Images' %}
+            {% if field.label == 'profile pic' %}
             <div class="mb-2">
                 <label for="{{field.name}}" class="form-label">{{field.label_tag}}</label>
                 {{field|addcss:'form-control'}}

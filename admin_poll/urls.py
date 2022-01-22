@@ -4,13 +4,8 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 
 urlpatterns = [
-    path('', views.add_user, name = "add_user"),
-    path('add_user/', views.add_user, name = "add_user"),
-    
-    # path('logout/',views.logout_page, name="logout"),
-   # path('login/',views.login_page, name="login"),
-    # path('add_user_password_change/<int:id>/',views.add_user_password_change, name="add_user_password_change"),
-
+    path('signup/', views.add_user, name = "add_user"),
+    path('make_admin/', views.make_admin, name = "make_admin"),
 	path('accounts/password/reset/confirm/<uidb64>/<token>/',views.PasswordResetConfirm.as_view(extra_context={'page_kwargs':{'static_url':settings.STATIC_URL}}),
 		  name='password_reset_confirm'),
 
