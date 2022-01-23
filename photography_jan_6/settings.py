@@ -102,57 +102,57 @@ DATABASES = {
 }
 
 #LOGGING
-APP_LOGGING_LEVEL = env('APP_LOGGING_LEVEL')
-APP_LOGGER_FUNCTION_IN_PARAMS = env('APP_LOGGER_FUNCTION_IN_PARAMS')
-APP_LOGGER_FUNCTION_OUT_PARAMS = env('APP_LOGGER_FUNCTION_OUT_PARAMS')
-APP_URL = env('APP_URL')
+# APP_LOGGING_LEVEL = env('APP_LOGGING_LEVEL')
+# APP_LOGGER_FUNCTION_IN_PARAMS = env('APP_LOGGER_FUNCTION_IN_PARAMS')
+# APP_LOGGER_FUNCTION_OUT_PARAMS = env('APP_LOGGER_FUNCTION_OUT_PARAMS')
+# APP_URL = env('APP_URL')
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        # 'verbose': {'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(message)s'},
-        'verbose': {'format': '%(asctime)s %(levelname)s %(message)s'},
-        'simple': {'format': '%(levelname)s %(message)s'},
-    },
-    'handlers': {
-        'app_scripts': {
-            'level': env('APP_LOGGING_LEVEL'),
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': os.path.join(BASE_DIR, 'istory', 'logs', 'app_scripts.log'),
-            'when': 'W4',
-            'interval': 1,
-            'backupCount': 4
-        },
-        'app': {
-            'level': env('APP_LOGGING_LEVEL'),
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': os.path.join(BASE_DIR, 'istory', 'logs', 'app.log'),
-            'when': 'W4',
-            'interval': 1,
-            'backupCount': 4
-        },
-        'app_threads': {
-            'level': env('APP_LOGGING_LEVEL'),
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': os.path.join(BASE_DIR, 'istory', 'logs', 'app_threads.log'),
-            'when': 'W4',
-            'interval': 1,
-            'backupCount': 4
-        },
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         # 'verbose': {'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(message)s'},
+#         'verbose': {'format': '%(asctime)s %(levelname)s %(message)s'},
+#         'simple': {'format': '%(levelname)s %(message)s'},
+#     },
+#     'handlers': {
+#         'app_scripts': {
+#             'level': env('APP_LOGGING_LEVEL'),
+#             'class': 'logging.handlers.TimedRotatingFileHandler',
+#             'formatter': 'verbose',
+#             'filename': os.path.join(BASE_DIR, 'admin_poll', 'logs', 'app_scripts.log'),
+#             'when': 'W4',
+#             'interval': 1,
+#             'backupCount': 4
+#         },
+#         'app': {
+#             'level': env('APP_LOGGING_LEVEL'),
+#             'class': 'logging.handlers.TimedRotatingFileHandler',
+#             'formatter': 'verbose',
+#             'filename': os.path.join(BASE_DIR, 'admin_poll', 'logs', 'app.log'),
+#             'when': 'W4',
+#             'interval': 1,
+#             'backupCount': 4
+#         },
+#         'app_threads': {
+#             'level': env('APP_LOGGING_LEVEL'),
+#             'class': 'logging.handlers.TimedRotatingFileHandler',
+#             'formatter': 'verbose',
+#             'filename': os.path.join(BASE_DIR, 'admin_poll', 'logs', 'app_threads.log'),
+#             'when': 'W4',
+#             'interval': 1,
+#             'backupCount': 4
+#         },
 
-    },
-    'loggers': {
-        'app_scripts': {'handlers': ['app_scripts'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
-        'app': {'handlers': ['app'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
-        'app_threads': {'handlers': ['app_threads'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
+#     },
+#     'loggers': {
+#         'app_scripts': {'handlers': ['app_scripts'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
+#         'app': {'handlers': ['app'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
+#         'app_threads': {'handlers': ['app_threads'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
 
-    }
-}
+#     }
+# }
 
 
 # Password validation
