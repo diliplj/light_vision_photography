@@ -36,6 +36,7 @@ class MakeAdminForm(forms.ModelForm):
 		self.request = kwargs.pop("request", None)
 		kwargs.setdefault('label_suffix', '')
 		super(MakeAdminForm, self).__init__(*args, **kwargs)
+		self.fields['role'].empty_label = 'Select the role'
 		self.fields['role'].queryset = Role.objects.filter(datamode='Active')
 
 
@@ -44,13 +45,6 @@ class MakeAdminForm(forms.ModelForm):
 		fields = ['user', 'role','designation']	
 
 class UserForm(forms.ModelForm):
-	# role = forms.ModelChoiceField(required=True, queryset=Role.objects.filter(datamode='A').order_by('role'))
-	# def __init__(self, *args, **kwargs):
-	# 	self.request = kwargs.pop("request", None)
-	# 	kwargs.setdefault('label_suffix', '')
-	# 	super(UserForm, self).__init__(*args, **kwargs)
-	# 	self.fields['role'].empty_label = 'Select the role for user'
-	# 	self.fields['role'].queryset = Role.objects.filter(datamode='Active').order_by('role')
 
 	class Meta:
 		model = AddUser
@@ -58,11 +52,8 @@ class UserForm(forms.ModelForm):
 	
 	def clean_password(self):
 		password = self.cleaned_data.get('password')
-		print("111111password",password)
 		err = password_validator(password)
-		print("err",err)
 		if err:	
-			print("errrrrrr")
 			raise forms.ValidationError(err)
 		return password
 		
@@ -138,7 +129,8 @@ class EditPackageForm(forms.ModelForm):
 		exclude = ['slug','updated_on','datamode','created_on']
 
 class EventsForm(forms.ModelForm):
-	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode='A'))
+	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode="Active"))
+	images = forms.FileField(label="Events Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 	def __init__(self, *args, **kwargs):
 		self.request = kwargs.pop("request", None)
@@ -149,7 +141,7 @@ class EventsForm(forms.ModelForm):
 
 	class Meta:
 		model = Events
-		exclude = ['slug','updated_on','datamode','created_on']
+		exclude = ['slug','updated_on','updated_by','datamode','created_on','created_by']
 
 
 class EditEventsForm(forms.ModelForm):
@@ -157,9 +149,19 @@ class EditEventsForm(forms.ModelForm):
 		model = Events
 		exclude = ['slug','updated_on','datamode','created_on']
 
+class PriceListForm(forms.ModelForm):
+	class Meta:
+		model = PriceList
+		exclude = ['updated_on','created_on','created_by','updated_by','slug','user','datamode']
+
+class EditPriceListForm(forms.ModelForm):
+	class Meta:
+		model = PriceList
+		exclude = ['updated_on','created_on','created_by','updated_by','slug','user','datamode']
+
 class EquipmentForm(forms.ModelForm):
-	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode='A'))
-	event = forms.ModelChoiceField(required=True, queryset=Events.objects.filter(datamode='A'))	
+	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode="Active"))
+	event = forms.ModelChoiceField(required=True, queryset=Events.objects.filter(datamode="Active"))	
 
 	def __init__(self, *args, **kwargs):
 		self.request = kwargs.pop("request", None)
@@ -172,12 +174,12 @@ class EquipmentForm(forms.ModelForm):
 
 	class Meta:
 		model = Equipment
-		exclude = ['slug','updated_on','datamode','created_on']
+		exclude = ['slug','updated_on','datamode','created_on','created_by','updated_by']
 
 class EditEquipmentForm(forms.ModelForm):
 	class Meta:
 		model = Equipment
-		exclude = ['slug','updated_on','datamode','created_on']
+		exclude = ['slug','updated_on','datamode','created_on','created_by','updated_by']
 
 class PasswordResetConfirmForm(SetPasswordForm):
 	def __init__(self, *args, **kwargs):

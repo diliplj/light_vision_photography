@@ -10,7 +10,7 @@ from wand.image import Image
 
 
 def assign_role(to_email_id,name,password,user_data,role_data):
-	print("**********")
+	print("****assign_role   started******")
 	AddUser.objects.filter(email=to_email_id,username=name ,datamode="Active").update(
 		password=make_password(password), created_by=to_email_id,updated_by=to_email_id)
 	UserRole.objects.create(user=user_data,role=role_data,created_by=to_email_id,
@@ -20,6 +20,7 @@ def assign_role(to_email_id,name,password,user_data,role_data):
 		email=to_email_id,username=name, created_by=to_email_id,updated_by=to_email_id
 	)
 	msg = True
+	print("***** assign finished *****")
 	return msg
 
 
@@ -48,3 +49,23 @@ def create_signature(img_data=None,category=None,user_name=None, data_from=None)
 		result= False
 		msg= "Category not found"
 		return result , msg
+
+
+# @app_logger.functionlogs(log=log_name)
+def _user_creation_flow(request, user_dict):
+    result = False
+    user = None
+    try:
+        user = AddUser()
+        user.email = user_dict.get('email_address')
+        user.password = make_password(user_dict.get('password'))
+        user.username = user_dict.get('email_address')
+        user.first_name = user_dict.get('first_name', '')
+        user.last_name = user_dict.get('last_name', '')
+        user.is_active = False
+        user.save()
+        result = True
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, user

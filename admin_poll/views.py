@@ -18,6 +18,9 @@ import logging
 from . import api
 
 """
+NOTE : { Cannot assign "<QuerySet [<Package: Marriage>]>": "Events.package" must be a "Package" instance.   }
+ if you are getting these kind of error then use (data = model.objects.get) not (data=model.objects.filter)  
+
 NOTE : In forms you can use form.save() for forms.ModelForm  but for forms.Form you 
 cannot use that form.save() so You need to create variable for model 
 eg : var = student.objects.get(email=email) and then you should save the variable like 
@@ -81,6 +84,7 @@ def make_admin(request):
 			return redirect('home')
 		context = {
 			"form" : form,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 		} 
 	except Exception as e:
@@ -95,6 +99,8 @@ def home(request):
 		data =  Banner.objects.filter(datamode="Active").order_by('-id')[:3]
 		banner_count = Banner.objects.filter(datamode="Active").count()
 		user_count = AddUser.objects.filter(datamode="Active")
+		team_members = UserRole.objects.all()
+
 		package_count = Package.objects.filter(datamode="Active").count()
 		event_count = Events.objects.filter(datamode="Active").count()
 		post_data = Post.objects.filter(datamode="Active")
@@ -104,7 +110,9 @@ def home(request):
 			"post_data":post_data,
 			"gallery_data":gallery_data,
 			"photos":Photos.objects.all(),
+			"team_members":	team_members.exclude(slug="user"),
 			"page_kwargs" : settings.STATIC_URL,
+			"media_kwargs" :settings.MEDIA_URL,
 			"banner_count":banner_count,"gallery_count":gallery_data.count(),"post_count":post_data.count(),
 			"user_count":user_count,"package_count":package_count,"event_count":event_count,
 		} 
@@ -142,6 +150,8 @@ def banner_add(request):
 			form = BannerForm()
 		context = {
 			"page_kwargs" : settings.STATIC_URL,
+			"media_kwargs" :settings.MEDIA_URL,
+	
 			"form_data":form	
 		}    
 	except Exception as e:
@@ -208,6 +218,7 @@ def post(request):
 		
 		context = {
 			"form":form,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 		
 			}
@@ -233,6 +244,7 @@ def edit_post(request, id):
 
 			context = {
 				"form":form,
+				"media_kwargs" :settings.MEDIA_URL,
 				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
@@ -279,12 +291,11 @@ def gallery(request):
 
 				return redirect('home')
 			else:
-				if Gallery.object.filter(user__email=account_user.email, datamode="Active").exists():
-					Gallery.object.filter(user__email=account_user.email, datamode="Active").update(datamode="Inactive")
-				form = GalleryForm()
+				form = GalleryForm(request.POST, request.FILES)
 		
 		context = {
 			"form":form,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 			}
 
@@ -310,6 +321,7 @@ def edit_gallery(request, id):
 
 			context = {
 				"form":form,
+				"media_kwargs" :settings.MEDIA_URL,
 				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
@@ -349,6 +361,7 @@ def package(request):
 					return HttpResponse("Function name is already exists")
 		context ={
 			"form" : package,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 		
 		}	
@@ -377,6 +390,7 @@ def edit_package(request, id):
 
 			context = {
 				"form":form,
+				"media_kwargs" :settings.MEDIA_URL,
 				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
@@ -392,15 +406,30 @@ def edit_package(request, id):
 def events(request):
 	try:
 		template = "events.html"
-		events = EventsForm()
+		events_form = EventsForm()
 		if request.method =="POST":
-			events = EventsForm(request.POST, request.FILES)
-			if events.is_valid():
-				events.save()
+			events_form = EventsForm(request.POST, request.FILES)
+			images = request.FILES.getlist('images')
+			package_name = Package.objects.get(id=request.POST.get('package'),datamode="Active")
+			if events_form.is_valid():
+				event_data = events_form.save(commit=False)
+				event_data.package = package_name
+				event_data.event_name = request.POST.get('event_name')
+				event_data.created_by =request.user.email, # check this data in model you got bug
+				event_data.updated_by = request.user.email,
+				event_data.save()
+				for image in images:
+					EventImages.objects.create(
+						event_name = request.POST.get('event_name'),
+						images = image,
+						created_by =request.user.email,
+						updated_by = request.user.email,
+					)
 				return redirect('home')
 
 		context ={
-			"form" : events,
+			"form" : events_form,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 		
 		}	
@@ -428,6 +457,7 @@ def edit_events(request, id):
 
 			context = {
 				"form":form,
+				"media_kwargs" :settings.MEDIA_URL,
 				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
@@ -437,6 +467,33 @@ def edit_events(request, id):
 		print("eeee",e)
 	
 	return render(request, template, context)
+
+
+#add_price_list
+@logged_in
+@all_admin
+def add_price_list(request):
+	try:
+		template = "admin_poll/add_price_list.html"
+		form = PriceListForm()
+		if request.method =="POST":
+			form = PriceListForm(request.POST)
+			if form.is_valid():
+				form.save()
+				return redirect('home')
+
+		context ={
+			"form" : form,
+			"media_kwargs" :settings.MEDIA_URL,
+			"page_kwargs" : settings.STATIC_URL,
+		}	
+
+	except Exception as e:
+		print("Error ----",e)
+
+	return render(request, template, context)
+
+
 
 @logged_in
 @all_admin
@@ -452,6 +509,7 @@ def equipment(request):
 
 		context ={
 			"form" : equipment,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 		}	
 
@@ -459,6 +517,7 @@ def equipment(request):
 		print("Error ----",e)
 
 	return render(request, template, context)
+
 
 @logged_in
 @all_admin
@@ -478,6 +537,7 @@ def edit_equipment(request, id):
 
 			context = {
 				"form":form,
+				"media_kwargs" :settings.MEDIA_URL,
 				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
@@ -502,6 +562,7 @@ def add_about_us(request):
 
 		context ={
 			"form" : about_us,
+			"media_kwargs" :settings.MEDIA_URL,
 			"page_kwargs" : settings.STATIC_URL,
 		}	
 
@@ -529,6 +590,7 @@ def edit_about_us(request, id):
 
 			context = {
 				"form":form,
+				"media_kwargs" :settings.MEDIA_URL,
 				"page_kwargs" : settings.STATIC_URL,
 				"obj":data_obj,
 			
@@ -560,7 +622,7 @@ def edit_profile_settings(request, email):
 			form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
 			if form.is_valid():
 				form.save()
-				data= Profile.objects.get(email=request.POST.get('email'))
+				data = Profile.objects.get(email=request.POST.get('email'))
 				session_data={
 					'image':str(data.profile_pic),
 					'email': request.POST.get('email'),
@@ -570,11 +632,10 @@ def edit_profile_settings(request, email):
 				return redirect('home')
 			else:
 				form = EditProfileForm(request.POST,request.FILES,instance=profile_obj)
-		print("settings.MEDIA_URL---",settings.MEDIA_ROOT)
 		context = {
 			"form":form,
 			"page_kwargs" : settings.STATIC_URL,
-			"media_kwargs" :settings.MEDIA_ROOT,
+			"media_kwargs" :settings.MEDIA_URL,
 			"obj":profile_obj,
 		
 			} 

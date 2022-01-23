@@ -202,3 +202,33 @@
 #     </ul>
 #   </div> -->
 # <!--- side bar -->
+
+
+# language
+# <!-- <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
+
+            #     <!-- item-->
+            #     <a href="javascript:void(0);" class="dropdown-item notify-item">
+            #         <img src="{{page_kwargs}}image/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span
+            #             class="align-middle">German</span>
+            #     </a>
+
+            #     <!-- item-->
+            #     <a href="javascript:void(0);" class="dropdown-item notify-item">
+            #         <img src="{{page_kwargs}}image/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span
+            #             class="align-middle">Italian</span>
+            #     </a>
+
+            #     <!-- item-->
+            #     <a href="javascript:void(0);" class="dropdown-item notify-item">
+            #         <img src="{{page_kwargs}}image/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span
+            #             class="align-middle">Spanish</span>
+            #     </a>
+
+            #     <!-- item-->
+            #     <a href="javascript:void(0);" class="dropdown-item notify-item">
+            #         <img src="{{page_kwargs}}image/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span
+            #             class="align-middle">Russian</span>
+            #     </a>
+
+            # </div>

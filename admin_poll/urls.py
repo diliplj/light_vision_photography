@@ -32,6 +32,10 @@ urlpatterns = [
     path("edit_about_us/<int:id>/",views.edit_about_us, name="edit_about_us"),
     path("delete_about_us/<int:id>/",views.delete_about_us, name="delete_about_us"),
 
+    # price list
+    path("add_price_list/",views.add_price_list, name="price_list"),
+    #path("edit_price_list/<int:id>/",views.edit_price_list, name="edit_price_list"),
+
     # profile settings
     path("edit_profile_settings/<str:email>/",views.edit_profile_settings, name="edit_profile_settings"),
     # path('activate/<str:uidb64>/<str:token>/', views.activate, name="activate"),

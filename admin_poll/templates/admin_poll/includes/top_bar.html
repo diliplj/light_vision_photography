@@ -16,36 +16,9 @@
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <img src="{{page_kwargs}}image/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="12">
-                <span class="align-middle d-none d-sm-inline-block">English</span> <i
-                    class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
+                <span class="align-middle d-none d-sm-inline-block">English</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img src="{{page_kwargs}}image/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">German</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img src="{{page_kwargs}}image/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">Italian</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img src="{{page_kwargs}}image/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">Spanish</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img src="{{page_kwargs}}image/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">Russian</span>
-                </a>
-
-            </div>
+            
         </li>
 
         <li class="dropdown notification-list">
@@ -201,15 +174,17 @@
                 <i class="dripicons-gear noti-icon"></i>
             </a>
         </li>
+        
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
                 role="button" aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar">
                     
-                    <img src="{{page_kwargs}}profile_images/{{request.session.profile.image}}" class="rounded-circle">
+                    <img src="{{media_kwargs}}{{request.session.profile.image}}" class="rounded-circle">
                 </span>
                 <span>
-                    <span class="account-user-name">{{request.username}}</span>
+
+                    <span class="account-user-name">{{request.session.profile.username}}</span>
                     <span class="account-position">Founder</span>
                 </span>
             </a>

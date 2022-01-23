@@ -9,10 +9,16 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Basic setup env variables
+env = environ.Env(DEBUG=(bool, True))
+environ.Env.read_env()  # reading .env file
 
+ENVIRONMENT = env("ENV")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -82,6 +88,8 @@ WSGI_APPLICATION = 'photography_jan_6.wsgi.application'
 #     }
 # }
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -92,6 +100,61 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+#LOGGING
+APP_LOGGING_LEVEL = env('APP_LOGGING_LEVEL')
+APP_LOGGER_FUNCTION_IN_PARAMS = env('APP_LOGGER_FUNCTION_IN_PARAMS')
+APP_LOGGER_FUNCTION_OUT_PARAMS = env('APP_LOGGER_FUNCTION_OUT_PARAMS')
+APP_URL = env('APP_URL')
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        # 'verbose': {'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(message)s'},
+        'verbose': {'format': '%(asctime)s %(levelname)s %(message)s'},
+        'simple': {'format': '%(levelname)s %(message)s'},
+    },
+    'handlers': {
+        'app_scripts': {
+            'level': env('APP_LOGGING_LEVEL'),
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': os.path.join(BASE_DIR, 'istory', 'logs', 'app_scripts.log'),
+            'when': 'W4',
+            'interval': 1,
+            'backupCount': 4
+        },
+        'app': {
+            'level': env('APP_LOGGING_LEVEL'),
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': os.path.join(BASE_DIR, 'istory', 'logs', 'app.log'),
+            'when': 'W4',
+            'interval': 1,
+            'backupCount': 4
+        },
+        'app_threads': {
+            'level': env('APP_LOGGING_LEVEL'),
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': os.path.join(BASE_DIR, 'istory', 'logs', 'app_threads.log'),
+            'when': 'W4',
+            'interval': 1,
+            'backupCount': 4
+        },
+
+    },
+    'loggers': {
+        'app_scripts': {'handlers': ['app_scripts'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
+        'app': {'handlers': ['app'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
+        'app_threads': {'handlers': ['app_threads'], 'level': env('APP_LOGGING_LEVEL'), 'propagate': False, },
+
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -137,6 +200,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'admin_poll', 'media', 'ddata')
 # Additional locations of static files
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'admin_poll', 'media', 'ssdata'),
+    os.path.join(BASE_DIR, 'admin_poll', 'media', 'ddata'),
     # os.path.join(SITE_ROOT, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
