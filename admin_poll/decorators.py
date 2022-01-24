@@ -42,14 +42,14 @@ def admin_only(func):
     
     return wrapper
 
-def sub_admin_only(func):
+def super_admin_only(func):
     def wrapper(request, *args, **kwargs):
         try:
             if request.user.is_authenticated:
                 if UserRole.objects.filter(user= request.user, role__role="Super Admin").exists():
                     return func(request, *args, **kwargs)
                 else:
-                    return HttpResponse("Sorry You are not authorized to view this page")   
+                    return redirect('login')
             else:
                 messages.error(request,("You are not logged in"))
                 return redirect('login')

@@ -412,19 +412,7 @@ def events(request):
 			images = request.FILES.getlist('images')
 			package_name = Package.objects.get(id=request.POST.get('package'),datamode="Active")
 			if events_form.is_valid():
-				event_data = events_form.save(commit=False)
-				event_data.package = package_name
-				event_data.event_name = request.POST.get('event_name')
-				event_data.created_by =request.user.email, # check this data in model you got bug
-				event_data.updated_by = request.user.email,
-				event_data.save()
-				for image in images:
-					EventImages.objects.create(
-						event_name = request.POST.get('event_name'),
-						images = image,
-						created_by =request.user.email,
-						updated_by = request.user.email,
-					)
+				events_form.save()
 				return redirect('home')
 
 		context ={
@@ -471,7 +459,7 @@ def edit_events(request, id):
 
 #add_price_list
 @logged_in
-@all_admin
+@super_admin_only
 def add_price_list(request):
 	try:
 		template = "admin_poll/add_price_list.html"
@@ -492,6 +480,31 @@ def add_price_list(request):
 		print("Error ----",e)
 
 	return render(request, template, context)
+
+@logged_in
+@super_admin_only
+def edit_price_list(request,id):
+	try:
+		template = "admin_poll/edit_price_list.html"
+		price_data = PriceList.objects.get(id=id)
+		form = PriceListForm(instance=price_data)
+		if request.method =="POST":
+			form = PriceListForm(request.POST,instance=price_data)
+			if form.is_valid():
+				form.save()
+				return redirect('home')
+
+		context ={
+			"form" : form,
+			"media_kwargs" :settings.MEDIA_URL,
+			"page_kwargs" : settings.STATIC_URL,
+		}	
+
+	except Exception as e:
+		print("Error ----",e)
+
+	return render(request, template, context)
+
 
 
 

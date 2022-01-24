@@ -80,7 +80,7 @@ def migrate_app_database():
         app_list = [app for app in settings.INSTALLED_APPS if not app.startswith("django")]
         for apps in app_list:
             apps = apps.replace(".", "/")
-            migration_path = os.path.join(settings.BASE_DIR, 'admin_poll/%s/migrations' % (apps))
+            migration_path = os.path.join(settings.BASE_DIR, '/admin_poll/%s/migrations' % (apps))
             for file in glob.glob(migration_path + "/0*.py"):
                 os.remove(file)
 

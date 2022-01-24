@@ -1,4 +1,5 @@
 
+from email.policy import default
 from django.db.models import fields
 from django.http import request
 from .models import *
@@ -109,28 +110,28 @@ class GalleryForm(forms.ModelForm):
 
 	class Meta:
 		model = Gallery
-		exclude = ['user','slug','updated_on','datamode','created_on']
+		exclude = ['user','slug','updated_on','datamode','created_on','created_by','updated_by']
 
 class EditGalleryForm(forms.ModelForm):
 	class Meta:
 		model = Gallery
-		exclude = ['user','slug','updated_on','datamode','created_on']
+		exclude = ['user','slug','updated_on','datamode','created_on','created_by','updated_by']
 
 #------------------------------
 
 class PackageForm(forms.ModelForm):
 	class Meta:
 		model = Package
-		exclude = ['slug','updated_on','datamode','created_on']
+		exclude = ['slug','updated_on','datamode','created_on','created_by','updated_by']
 
 class EditPackageForm(forms.ModelForm):
 	class Meta:
 		model = Package
-		exclude = ['slug','updated_on','datamode','created_on']
+		exclude = ['slug','updated_on','datamode','created_on','created_by','updated_by']
 
 class EventsForm(forms.ModelForm):
 	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode="Active"))
-	images = forms.FileField(label="Events Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
+	# images = forms.FileField(label="Events Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 	def __init__(self, *args, **kwargs):
 		self.request = kwargs.pop("request", None)
@@ -147,21 +148,23 @@ class EventsForm(forms.ModelForm):
 class EditEventsForm(forms.ModelForm):
 	class Meta:
 		model = Events
-		exclude = ['slug','updated_on','datamode','created_on']
+		exclude = ['slug','updated_on','datamode','created_on','created_by','updated_by']
 
 class PriceListForm(forms.ModelForm):
+	add_offer_in_percentage = forms.IntegerField(label="Add Offer( % )", required=False)
 	class Meta:
 		model = PriceList
-		exclude = ['updated_on','created_on','created_by','updated_by','slug','user','datamode']
+		exclude = ['updated_on','created_on','created_by','updated_by','slug','datamode']
 
 class EditPriceListForm(forms.ModelForm):
 	class Meta:
 		model = PriceList
-		exclude = ['updated_on','created_on','created_by','updated_by','slug','user','datamode']
+		exclude = ['updated_on','created_on','created_by','updated_by','slug','datamode']
 
 class EquipmentForm(forms.ModelForm):
 	package = forms.ModelChoiceField(required=True, queryset=Package.objects.filter(datamode="Active"))
 	event = forms.ModelChoiceField(required=True, queryset=Events.objects.filter(datamode="Active"))	
+	equipment_images = forms.FileField(label="Equipment Images",widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 	def __init__(self, *args, **kwargs):
 		self.request = kwargs.pop("request", None)
@@ -196,12 +199,12 @@ class PasswordResetConfirmForm(SetPasswordForm):
 class AboutUsForm(forms.ModelForm):
 	class Meta:
 		model = AboutUs
-		exclude = ['updated_on','created_on']
+		exclude = ['updated_on','created_on','created_by','updated_by']
 
 class EditAboutUsForm(forms.ModelForm):
 	class Meta:
 		model = AboutUs
-		exclude = ['updated_on','created_on']		
+		exclude = ['updated_on','created_on','created_by','updated_by']		
 
 #profile
 class ProfileForm(forms.ModelForm):

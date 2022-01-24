@@ -1,4 +1,5 @@
 from importlib.metadata import requires
+from re import S
 from django.db import models
 from django.template.defaultfilters import slugify
 from . import choices as ch
@@ -89,8 +90,6 @@ class UserRole(models.Model):
 
 class Package(models.Model):
 	function_name = models.CharField(max_length=100, null=False)
-	amount     = models.IntegerField(default=0)
-	number_of_days = models.IntegerField(default=0)
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
@@ -115,7 +114,7 @@ class Package(models.Model):
 class Events(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	event_name = models.CharField(max_length=100)
-	images = models.ImageField(null=True, upload_to='event_images/')
+	# images = models.ImageField(null=True, upload_to='event_images/')
 	slug =  models.SlugField(max_length=255)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
@@ -138,37 +137,14 @@ class Events(models.Model):
 	def __str__(self):
 		return "{0}".format(self.event_name)
 
-class EventImages(models.Model):
-	event_name = models.CharField(max_length=100)
-	images = models.ImageField(null=True, upload_to='event_images/')
-	slug =  models.SlugField(max_length=255)
-	created_on = models.DateTimeField(auto_now_add=True)
-	updated_on = models.DateTimeField(auto_now=True)
-	created_by = models.CharField(null=True, max_length=255)
-	updated_by = models.CharField(null=True, max_length=255)
-	datamode = models.CharField(max_length=257, default='Active', choices=ch.DATAMODE_CHOICES)
-
-	class Meta:
-		db_table = "EventImages"
-		verbose_name= "EventImages"
-
-	def save(self, *args, **kwargs):
-		super(EventImages, self).save(*args, **kwargs)
-		if self.event_name:
-			self.slug = slugify(self.event_name)
-			super(EventImages, self).save()
-
-
-	def __str__(self):
-		return "{0}".format(self.event_name)
-
 
 class Equipment(models.Model):
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	event = models.ForeignKey(Events, on_delete=models.CASCADE)
-	images = models.ImageField(null=True, upload_to='equipment_images/')
-	equipment_name = models.TextField(null=False)
-	equipment_model = models.TextField(null=False)
+	equipment_name = models.CharField(null=True, max_length=255)
+	equipment_model = models.CharField(null=True, max_length=255)
+	equipement_desc = models.TextField(null=True, max_length=255)
+	equipment_images = models.ImageField(null=True, upload_to='equipment_images/')
 	slug = models.SlugField(max_length=255,null=True)
 	album_detail = models.TextField(null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
@@ -194,10 +170,12 @@ class Equipment(models.Model):
 
 
 class PriceList(models.Model):
-	# user = models.ForeignKey(AddUser, on_delete=models.CASCADE)
 	package = models.ForeignKey(Package, on_delete=models.CASCADE)
 	event = models.ForeignKey(Events, on_delete=models.CASCADE)
 	equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, null=True)
+	number_of_days = models.IntegerField(default=0)
+	amount     = models.IntegerField(default=0)
+	add_offer_in_percentage = models.IntegerField(default=0, null=False) 
 	slug = models.SlugField(max_length=255,null=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
